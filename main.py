@@ -1,9 +1,7 @@
 import streamlit as st
 from States import State
 from Views import Chat, TestGeneration
-from dotenv import load_dotenv
 
-load_dotenv()
 choosen = st.sidebar.selectbox("Select a view", ["Test Generation", "Chat"])
 State.init({
     "check" : 42
