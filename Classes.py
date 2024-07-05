@@ -31,18 +31,19 @@ class Model:
 
     def inference(self, messages : List[Dict[str, str]], parameters: Dict[str, Any] = None):
         if parameters is None:
-            parameters = {
+            param = {
                 "model": self.model_callsign,
                 "messages": messages,
             }
         else:
-            parameters = {
+            param = {
                 "model": self.model_callsign,
                 "messages": messages,
                 **parameters
             }
-        response = self.chat.completions.create.create(
-            **parameters
+        print(param)
+        response = self.model.chat.completions.create(
+            **param
         )
         return response.choices[0].message.content
 
@@ -57,7 +58,7 @@ class Agent:
     def inference(self, message) -> str:
         if message is not None:
             self.messages.append(self.name, message)
-        response = self.model.inference(self.messages, parameters=self.parameters)
+        response = self.model.inference(self.messages.get_history(), parameters=self.parameters)
         self.messages.append(self.name, response)
         return response
 

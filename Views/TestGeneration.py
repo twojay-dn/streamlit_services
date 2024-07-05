@@ -4,6 +4,7 @@ from langchain_core.prompts import PromptTemplate
 from States import State
 from functools import wraps
 from typing import Callable
+from utils import read_file
 import os
 
 def render():
@@ -72,6 +73,3 @@ def call_to_generation_curriculum(inp : str) -> str:
     chain = prompt | caller
     return chain.invoke(input=prompt_params).content
 
-def read_file(file_path : str) -> str:
-    with open(file_path, "r", encoding="utf-8") as file:
-        return file.read()
