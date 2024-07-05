@@ -41,7 +41,7 @@ class Model:
                 "messages": messages,
                 **parameters
             }
-        response = self.model.chat.completions.create(
+        response = self.chat.completions.create.create(
             **parameters
         )
         return response.choices[0].message.content
@@ -54,39 +54,12 @@ class Agent:
         self.parameters = parameters
         self.messages = Messages()
         
-    def inference(self, message):
-        self.messages.append({'role': 'agent', 'content': message})
+    def inference(self, message) -> str:
+        if message is not None:
+            self.messages.append(self.name, message)
         response = self.model.inference(self.messages, parameters=self.parameters)
-        self.messages.append({'role': 'user', 'content': response})
+        self.messages.append(self.name, response)
         return response
-
-class End_condition:
-    def __init__(self, limit_turn : int = None, soft_condition_prompt : str = None):
-        assert limit_turn is not None or soft_condition_prompt is not None, "Either limit_turn or soft_condition_prompt must be provided"
-        self.limit_turn = limit_turn
-        self.soft_condition_prompt = soft_condition_prompt
-
-    def check(self, messages : Messages):
-        turn = messages.get_turn_count()
-        if self.limit_turn and turn > self.limit_turn:
-            return True
-        if self.soft_condition_prompt:
-            return self.soft_condition_prompt.check(messages)
-        return False
-
-class Table:
-    def __init__(self) -> None:
-        self.table = []
-        self.end_condition = End_condition()
-
-    def save_dialogue_history_as_file(self, filepath):
-        self.dialogue_history.save_as_file(filepath)
-
-    def sit(self, agent: Agent):
-        self.table.append(agent)
-
-    def leave(self, agent: Agent):
-        self.table.remove(agent)
 
 def merge_messages(messages_a : Messages, messages_b : Messages, is_a_assistant : bool = True) -> Messages:
     merged_messages = Messages()

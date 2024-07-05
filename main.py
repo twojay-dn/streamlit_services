@@ -1,13 +1,17 @@
 import streamlit as st
 from States import State
 from Views import Chat, TestGeneration
+from dotenv import load_dotenv
 
-choosen = st.sidebar.selectbox("Select a view", ["Chat", "Test Generation"])
+load_dotenv()
+choosen = st.sidebar.selectbox("Select a view", ["Test Generation", "Chat"])
 State.init({
     "check" : 42
 })
 
-if choosen == "Chat":
+if choosen == "Test Generation":
+    TestGeneration.render()
+elif choosen == "Chat":
     Chat.render()
 else:
-    TestGeneration.render()
+    st.error("잘못된 선택입니다.")
