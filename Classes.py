@@ -41,7 +41,6 @@ class Model:
                 "messages": messages,
                 **parameters
             }
-        print(param)
         response = self.model.chat.completions.create(
             **param
         )
@@ -54,13 +53,18 @@ class Agent:
         self.model = Model()
         self.parameters = parameters
         self.messages = Messages()
+        self.system_message = None
         
     def inference(self, message) -> str:
         if message is not None:
             self.messages.append(self.name, message)
-        response = self.model.inference(self.messages.get_history(), parameters=self.parameters)
+        msgs = [{"role": "system", "content": self.system_message}] + self.messages.get_history()
+        response = self.model.inference(msgs, parameters=self.parameters)
         self.messages.append(self.name, response)
         return response
+    
+    def set_system_message(self, message):
+        self.system_message = message
 
 def merge_messages(messages_a : Messages, messages_b : Messages, is_a_assistant : bool = True) -> Messages:
     merged_messages = Messages()

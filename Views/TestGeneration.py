@@ -35,6 +35,7 @@ def generation_tap():
         
     with col2:
         inp = st.text_area("수업 내용을 입력해주세요.", height=200)
+        State.set("content", inp)
         if st.button("생성 버튼"):
             button_callback(inp)
 
