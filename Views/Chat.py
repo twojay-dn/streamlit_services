@@ -3,6 +3,7 @@ from States import State
 from Classes import Agent
 from utils import read_file
 from enums import Persona, load_prompt_path
+import os
 
 def compose_prompt(prompt : str, params : dict) -> str:
     if params is None:
@@ -24,14 +25,14 @@ def render():
         "content" : State.get("content"),
         "teaching_generated_prompt" : State.get("curriculum")
     }
-    teacher_persona = compose_prompt(read_file("prompts/persona_teacher.md"), teacher_persona_params)
+    teacher_persona = compose_prompt(read_file(f"{os.getcwd()}/prompts/persona_teacher.md"), teacher_persona_params)
     teacher = Agent("assistant", teacher_persona)
     teacher.set_system_message(teacher_persona)
 
     student_persona = compose_prompt(read_file(load_prompt_path(State.get("persona"))), None)
     student = Agent("user", student_persona)
     student.set_system_message(student_persona)
-    st.write(f"학생 프롬프트 : {student_persona}")
+    st.write(f"선택한 프롬프트 : {State.get("persona")}")
 
     if st.button("Start"):
         former_message = ""
