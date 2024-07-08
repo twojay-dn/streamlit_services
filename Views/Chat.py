@@ -29,10 +29,11 @@ def render():
     teacher = Agent("assistant", teacher_persona)
     teacher.set_system_message(teacher_persona)
 
-    student_persona = compose_prompt(read_file(load_prompt_path(State.get("persona"))), None)
+    student_type = State.get("persona")
+    student_persona = compose_prompt(read_file(load_prompt_path(student_type)), None)
     student = Agent("user", student_persona)
     student.set_system_message(student_persona)
-    st.write(f"선택한 프롬프트 : {State.get("persona")}")
+    st.write(f"선택한 학생 유형 : {student_type}")
 
     if st.button("Start"):
         former_message = ""
