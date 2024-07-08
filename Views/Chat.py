@@ -2,6 +2,7 @@ import streamlit as st
 from States import State
 from Classes import Agent
 from utils import read_file
+from enums import Persona, load_prompt_path
 
 def compose_prompt(prompt : str, params : dict) -> str:
     if params is None:
@@ -24,11 +25,13 @@ def render():
         "teaching_generated_prompt" : State.get("curriculum")
     }
     teacher_persona = compose_prompt(read_file("prompts/persona_teacher.md"), teacher_persona_params)
-    student_persona = compose_prompt(read_file("prompts/persona_student.md"), None)
     teacher = Agent("assistant", teacher_persona)
     teacher.set_system_message(teacher_persona)
+
+    student_persona = compose_prompt(read_file(load_prompt_path(State.get("persona"))), None)
     student = Agent("user", student_persona)
     student.set_system_message(student_persona)
+    st.write(f"학생 프롬프트 : {student_persona}")
 
     if st.button("Start"):
         former_message = ""
