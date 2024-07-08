@@ -1,5 +1,5 @@
 import streamlit as st
-from States import State
+from classes.State import State
 
 def render():
     st.title("Chat")
