@@ -1,7 +1,7 @@
 import streamlit as st
-from States import State
+from src.Controllers import BaseController
 
 def render():
     st.title("Chat")
     st.write("This is the chat view")
-    st.write(State.get("check"))
+    st.write(BaseController.get_state_by_key("check"))
