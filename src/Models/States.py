@@ -1,12 +1,7 @@
 import streamlit as st
-from typing import Any, Dict
+from typing import Any
 
 class State:
-    @staticmethod
-    def init(params : Dict[str, Any]):
-        for key, value in params.items():
-            st.session_state[key] = value
-
     @staticmethod
     def get(key : str, value : Any = None) -> Any:
         if key not in st.session_state:
