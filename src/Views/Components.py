@@ -21,7 +21,7 @@ class Sidebar:
     @classmethod
     def get_selected_page(cls):
         return cls.page
-    
+
 class BaseColumns:
     def __init__(self,
             column_callbacks : List[Callable] = None,
@@ -65,10 +65,30 @@ from functools import wraps
 def render_page(name: str, description: str = None):
     def decorator(func):
         assert name is not None, "Name is required"
-        assert callable(func), "Function is required"
+        assert hasattr(func, '__call__'), "Function is required"
         @wraps(func)
         def wrapper(*args, **kwargs):
             page = BasePage(name, description)
             page.render(func)
         return wrapper
     return decorator
+
+from src.Controllers.ChatMemory import BaseMemoryController
+from src.Controllers.LLM import BaseLLMController
+
+# class BaseChatBox:
+#     def __init__(self, memory : BaseMemoryController, llm : BaseLLMController):
+#         self.memory = memory
+#         self.llm = llm
+        
+#     def render(self):
+#         st.chat_input("Enter your message")
+#         st.chat_message("user").write(st.session_state.message)
+        
+#     def call_inference(self):
+#         pass
+    
+class ChatBoxComponent:
+    def __init__(self, memory : BaseMemoryController, llm : BaseLLMController):
+        self.memory = memory
+        self.llm = llm    

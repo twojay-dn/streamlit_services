@@ -1,9 +1,13 @@
-from src.Controllers import init_state
+from src.Controllers import BaseController
 from src.route import route
 from src.Views.Components import Sidebar
+import os
 
 def preprocess():
-    init_state()
+    BaseController.set_state("check", 42)
+    if os.getenv("RUN_ENV").lower() == "local":
+        from dotenv import load_dotenv
+        load_dotenv()
 
 def init():
     preprocess()
