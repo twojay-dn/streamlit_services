@@ -1,13 +1,29 @@
-from langchain_core.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from abc import ABC, abstractmethod
-from typing import Literal
+from typing import Literal, Callable
+from src.Controllers.ChatMemory import BaseMemoryController
 import types
+import streamlit as st
+import os
 
+def _get_api_key():
+    run_env = os.getenv("RUN_ENV")
+    match run_env:
+        case "local":
+            return os.getenv("OPENAI_API_KEY")
+        case "production":
+            return st.secrets["OPENAI_API_KEY"]
+        case _:
+            raise ValueError(f"RUN_ENV must be set to 'local' or 'production' : {run_env}")
+        
 class BaseLLMController(ABC):
-    def __init__(self, model : str, api_key : str):
+    def __init__(self, model : str, api_key : str = None):
         self.model = model
-        self.api_key = api_key
+        if api_key is None:
+            self.api_key = _get_api_key()
+        else:
+            self.api_key = api_key
         
     def inference(self, prompt : str):
         response = self.inference(prompt)
@@ -18,25 +34,24 @@ class BaseLLMController(ABC):
         self.inference = types.MethodType(inference, self)
         
 class OpenAIController(BaseLLMController):
-    def __init__(self, model : str, api_key : str):
+    def __init__(self, model : str, api_key : str = None):
         super().__init__(model, api_key)
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=self.api_key)
     
-    def inference(self, role : Literal["user", "assistant"], prompt : str, messages : BaseChatController):
-        messages = messages.get_messages()
+    def inference(self, role : Literal["user", "assistant"], prompt : str, messages : BaseMemoryController):
+        messages = messages.get_memory()
         response = self.client.chat.completions.create(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}]
+            messages=messages
         )
         response = response.choices[0].message.content
-        messages.append({"role": "assistant", "content": response})
         return response
 
 class LangchainOpenaiController(BaseLLMController):
-    def __init__(self, model : str, api_key : str):
+    def __init__(self, model : str, api_key : str = None):
         super().__init__(model, api_key)
-        self.client = ChatOpenAI(model=model, api_key=api_key)
+        self.client = ChatOpenAI(model=model, api_key=self.api_key)
     
-    def inference(self, role : Literal["user", "assistant"], prompt : str, messages : BaseChatController):
+    def inference(self, role : Literal["user", "assistant"], prompt : str, messages : BaseMemoryController):
         self.client.invoke(messages)
         

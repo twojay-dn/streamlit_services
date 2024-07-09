@@ -76,19 +76,21 @@ def render_page(name: str, description: str = None):
 from src.Controllers.ChatMemory import BaseMemoryController
 from src.Controllers.LLM import BaseLLMController
 
-# class BaseChatBox:
-#     def __init__(self, memory : BaseMemoryController, llm : BaseLLMController):
-#         self.memory = memory
-#         self.llm = llm
-        
-#     def render(self):
-#         st.chat_input("Enter your message")
-#         st.chat_message("user").write(st.session_state.message)
-        
-#     def call_inference(self):
-#         pass
-    
 class ChatBoxComponent:
-    def __init__(self, memory : BaseMemoryController, llm : BaseLLMController):
+    def __init__(self, memory : BaseMemoryController, llm : BaseLLMController, height : int = 600):
         self.memory = memory
-        self.llm = llm    
+        self.llm = llm
+        self.height = height
+        self.history_container = st.container(height=round(self.height * 0.85))
+        self.input_container = st.container(height=round(self.height * 0.15))
+        
+    def render(self):
+        with self.input_container:
+            if prompt := st.chat_input("Enter your message"):
+                self.memory.add_message("user", prompt)
+                response = self.llm.inference("user", prompt, self.memory)
+                self.memory.add_message("assistant", response)
+
+        with self.history_container:
+            for message in self.memory.get_memory():
+                st.chat_message(message["role"]).write(message["content"])

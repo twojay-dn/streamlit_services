@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-from typing import Dict, List
+from typing import Dict, List, Literal
 from abc import ABC, abstractmethod
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory, ChatMessageHistory
 from langchain_openai import ChatOpenAI
@@ -12,7 +12,7 @@ class BaseMemoryController(ABC):
         self.limit_length = limit_turn * 2
 
     @abstractmethod
-    def add_message(self, message : Dict[str, str]) -> None:
+    def add_message(self, role : Literal["user", "assistant"], content : str) -> None:
         pass
     
     @abstractmethod
@@ -24,10 +24,10 @@ class MemoryController(BaseMemoryController):
         self.memory = []
         self.limit_length = limit_turn * 2
 
-    def add_message(self, message : Dict[str, str]) -> None:
+    def add_message(self, role : Literal["user", "assistant"], content : str) -> None:
         if len(self.memory) >= self.limit_length:
             self.memory = self.memory[2:]
-        self.memory.append(message)
+        self.memory.append({"role": role, "content": content})
 
     def get_memory(self) -> List[Dict[str, str]]:
         return self.memory
@@ -43,11 +43,11 @@ class LangchainMemoryController(BaseMemoryController):
             raise ValueError("RUN_ENV must be 'local' or 'production' to use LangchainMemoryController")
 
         
-    def add_message(self, message : Dict[str, str]) -> None:
-        if message["role"] == "user":
-            self.memory.add_user_message(message["content"])
+    def add_message(self, role : Literal["user", "assistant"], content : str) -> None:
+        if role == "user":
+            self.memory.add_user_message(content)
         else:
-            self.memory.add_ai_message(message["content"])
+            self.memory.add_ai_message(content)
             
     def get_memory(self) -> List[Dict[str, str]]:
         return self.memory

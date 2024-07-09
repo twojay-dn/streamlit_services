@@ -5,9 +5,8 @@ import os
 
 def preprocess():
     BaseController.set_state("check", 42)
-    if os.getenv("RUN_ENV").lower() == "local":
-        from dotenv import load_dotenv
-        load_dotenv()
+    from dotenv import load_dotenv
+    load_dotenv()
 
 def init():
     preprocess()
