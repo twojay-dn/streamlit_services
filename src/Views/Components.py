@@ -1,5 +1,5 @@
 import streamlit as st
-from typing import Callable, List
+from typing import Callable, Literal, List
 
 title_description = "Sidebar"
 page_choise_description = "Sidebar"
@@ -23,26 +23,32 @@ class Sidebar:
         return cls.page
     
 class BaseColumns:
-    def __init__(self, column_callbacks : List[Callable] = None):
+    def __init__(self,
+            column_callbacks : List[Callable] = None,
+            gap : Literal["small", "medium", "large"] = "small",
+        ):
         if column_callbacks is None:
             column_callbacks = []
         if not all(isinstance(column_callback, Callable) for column_callback in column_callbacks):
             raise ValueError("All column_callbacks must be callable")
         self.col_len = len(column_callbacks)
         self.columns = enumerate(column_callbacks)
+        self.gap = gap
 
     def add_column(self, column_callback : Callable):
         if not isinstance(column_callback, Callable):
             raise ValueError("column_callback must be a callable")
         self.columns.append(column_callback)
-        self.col_len += 1
+        self.col_len = len(self.columns)
 
     def render(self):
-        col_list = st.columns(self.col_len)
+        col_list = st.columns(
+            self.col_len,
+            gap = self.gap
+        )
         for index, column_callback in self.columns:
             with col_list[index]:
                 column_callback()
-
 
 class BasePage:
     def __init__(self, name : str, description : str = None):
@@ -54,9 +60,8 @@ class BasePage:
         if self.description is not None:
             st.subheader(self.description)
         impl_callback()
-        
-from functools import wraps
 
+from functools import wraps
 def render_page(name: str, description: str = None):
     def decorator(func):
         assert name is not None, "Name is required"

@@ -6,8 +6,9 @@ implemented_prompt_list = [
     "questions_generation_prompt"
 ]
 
-prompts_directory = f"{os.getcwd()}/resources/prompts"
-resources_directory = f"{os.getcwd()}/resources"
+resources_directory = f"{os.getcwd()}/resource"
+prompts_directory = f"{resources_directory}/prompts"
+
 
 def get_prompt_path(prompt_name : str) -> str:
     assert prompt_name in implemented_prompt_list, f"Invalid prompt name : {prompt_name}"

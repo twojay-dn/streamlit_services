@@ -1,4 +1,4 @@
-from srcs.utils import load_words
+from src.utils import load_words
 import random
 
 class WordsPool:
