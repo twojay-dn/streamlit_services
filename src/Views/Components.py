@@ -1,5 +1,5 @@
 import streamlit as st
-from typing import Callable
+from typing import Callable, List
 
 title_description = "Sidebar"
 page_choise_description = "Sidebar"
@@ -22,6 +22,28 @@ class Sidebar:
     def get_selected_page(cls):
         return cls.page
     
+class BaseColumns:
+    def __init__(self, column_callbacks : List[Callable] = None):
+        if column_callbacks is None:
+            column_callbacks = []
+        if not all(isinstance(column_callback, Callable) for column_callback in column_callbacks):
+            raise ValueError("All column_callbacks must be callable")
+        self.col_len = len(column_callbacks)
+        self.columns = enumerate(column_callbacks)
+
+    def add_column(self, column_callback : Callable):
+        if not isinstance(column_callback, Callable):
+            raise ValueError("column_callback must be a callable")
+        self.columns.append(column_callback)
+        self.col_len += 1
+
+    def render(self):
+        col_list = st.columns(self.col_len)
+        for index, column_callback in self.columns:
+            with col_list[index]:
+                column_callback()
+
+
 class BasePage:
     def __init__(self, name : str, description : str = None):
         self.name = name
