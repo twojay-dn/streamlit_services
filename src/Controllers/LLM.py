@@ -1,7 +1,7 @@
 from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from abc import ABC, abstractmethod
-from typing import Literal, Callable
+from typing import Literal, Callable, Any
 from src.Controllers.ChatMemory import BaseMemoryController
 import types
 import streamlit as st
@@ -54,4 +54,16 @@ class LangchainOpenaiController(BaseLLMController):
     
     def inference(self, role : Literal["user", "assistant"], prompt : str, messages : BaseMemoryController):
         self.client.invoke(messages)
+
+class HyperParameter:
+    def __init__(self, **kwargs):
+        self.hyperparameters = kwargs
         
+    def get_hyperparameter(self, key : str, default : Any = None):
+        return self.hyperparameters[key]
+
+    def set_hyperparameter(self, key : str, value : Any):
+        self.hyperparameters[key] = value
+        
+    def unpack(self):
+        return self.hyperparameters
