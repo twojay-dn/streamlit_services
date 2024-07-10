@@ -4,11 +4,11 @@ from typing import Any
 
 class BaseController:
     @classmethod
-    def get_state(cls, key, default=None):
+    def get_state(cls, key : str or int, default=None):
         return State.get(key, default)
     
     @classmethod
-    def set_state(cls, key, value, overwrite=True):
+    def set_state(cls, key : str or int, value : Any, overwrite : bool = False):
         if overwrite is False and cls.get_state(key) is not None:
             return cls.get_state(key)
         State.set(key, value)
@@ -24,13 +24,15 @@ class TempController:
     def __del__(self):
         State.delete(self.key)
     
-    def get(self, key : str, default : Any = None):
-        return State.get(self.key).get(key, default)
+    def get(self, key : str or int, default : Any = None):
+        storage : dict = State.get(self.key)
+        return storage.get(key, default)
     
-    def set(self, key : str, value : Any, overwrite : bool = True):
+    def set(self, key : str or int, value : Any, overwrite : bool = False):
         if overwrite is False and State.get(self.key)[key] is not None:
             return State.get(self.key)[key]
-        State.get(self.key)[key] = value
+        storage : dict = State.get(self.key)
+        storage[key] = value
 
 __all__ = [
     "BaseController",

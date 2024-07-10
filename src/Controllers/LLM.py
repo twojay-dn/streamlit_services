@@ -1,5 +1,6 @@
 from langchain_openai import ChatOpenAI
 from openai import OpenAI
+from src.utils import get_api_key
 from abc import ABC, abstractmethod
 from typing import Literal, Callable, Any
 from src.Controllers.ChatMemory import BaseMemoryController
@@ -7,21 +8,11 @@ import types
 import streamlit as st
 import os
 
-def _get_api_key():
-    run_env = os.getenv("RUN_ENV")
-    match run_env:
-        case "local":
-            return os.getenv("OPENAI_API_KEY")
-        case "production":
-            return st.secrets["OPENAI_API_KEY"]
-        case _:
-            raise ValueError(f"RUN_ENV must be set to 'local' or 'production' : {run_env}")
-        
 class BaseLLMController(ABC):
     def __init__(self, model : str, api_key : str = None):
         self.model = model
         if api_key is None:
-            self.api_key = _get_api_key()
+            self.api_key = get_api_key()
         else:
             self.api_key = api_key
         

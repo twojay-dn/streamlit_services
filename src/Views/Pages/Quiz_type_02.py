@@ -28,8 +28,8 @@ def generate_hints():
         st.write(tc.get("hints"))
 
 def chat_part():
-    BaseController.set_state("memory", MemoryController(), overwrite=False)
-    BaseController.set_state("llm", OpenAIController("gpt-3.5-turbo"), overwrite=False)
+    BaseController.set_state("memory", MemoryController())
+    BaseController.set_state("llm", OpenAIController("gpt-3.5-turbo"))
     chatbox = ChatBoxComponent(
         memory=BaseController.get_state("memory"),
         llm=BaseController.get_state("llm")

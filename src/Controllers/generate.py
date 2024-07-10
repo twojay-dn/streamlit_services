@@ -3,7 +3,6 @@ from langchain_core.prompts import PromptTemplate
 from langchain_openai import OpenAI
 from src.utils import load_prompt_from_name, get_api_key
 import streamlit as st
-import os
 
 api_key = get_api_key()
 questions_gen_prompt = load_prompt_from_name("questions_generation_prompt")
