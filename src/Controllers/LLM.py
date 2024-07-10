@@ -59,10 +59,10 @@ class HyperParameter:
     def __init__(self, **kwargs):
         self.hyperparameters = kwargs
         
-    def get_hyperparameter(self, key : str, default : Any = None):
+    def get(self, key : str, default : Any = None):
         return self.hyperparameters[key]
 
-    def set_hyperparameter(self, key : str, value : Any):
+    def set(self, key : str, value : Any):
         self.hyperparameters[key] = value
         
     def unpack(self):

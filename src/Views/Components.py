@@ -25,13 +25,17 @@ class Sidebar:
 class BaseColumns:
     def __init__(self,
             column_callbacks : List[Callable] = None,
+            widths : List[int] = None,
             gap : Literal["small", "medium", "large"] = "small",
         ):
         if column_callbacks is None:
             column_callbacks = []
         if not all(isinstance(column_callback, Callable) for column_callback in column_callbacks):
             raise ValueError("All column_callbacks must be callable")
-        self.col_len = len(column_callbacks)
+        if widths is None:
+            self.columns_count_with_widths = [1] * len(column_callbacks)
+        else:
+            self.columns_count_with_widths = widths
         self.columns = enumerate(column_callbacks)
         self.gap = gap
 
@@ -39,11 +43,10 @@ class BaseColumns:
         if not isinstance(column_callback, Callable):
             raise ValueError("column_callback must be a callable")
         self.columns.append(column_callback)
-        self.col_len = len(self.columns)
 
     def render(self):
         col_list = st.columns(
-            self.col_len,
+            self.columns_count_with_widths,
             gap = self.gap
         )
         for index, column_callback in self.columns:
