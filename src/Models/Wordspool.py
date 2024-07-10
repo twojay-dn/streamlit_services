@@ -8,4 +8,6 @@ class WordsPool:
 
     @classmethod
     def get_random_word(cls):
+        if not hasattr(cls, "words"):
+            cls.init()
         return random.choice(cls.words)

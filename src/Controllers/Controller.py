@@ -29,9 +29,9 @@ class TempController:
         return storage.get(key, default)
     
     def set(self, key : str or int, value : Any, overwrite : bool = False):
-        if overwrite is False and State.get(self.key)[key] is not None:
-            return State.get(self.key)[key]
         storage : dict = State.get(self.key)
+        if overwrite is False and storage.get(key, None) is not None:
+            return storage.get(key)
         storage[key] = value
 
 __all__ = [

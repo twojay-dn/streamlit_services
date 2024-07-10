@@ -1,4 +1,4 @@
-generate 20 hints about {quiz_answer} for the guessing game.
+generate {count} hints about {quiz_answer} for the guessing game.
 
 ### constraints
 - {quiz_answer} is the answer. So you must hide the answer in your hints.
@@ -10,7 +10,7 @@ generate 20 hints about {quiz_answer} for the guessing game.
     - hint 1
     - hint 2
     - ...
-    - hint 20
+    - hint {count}
 
 - do not use bullet points or other formatting. Just write the hints in a list.
 

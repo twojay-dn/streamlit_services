@@ -1,4 +1,4 @@
-generate 20 questions about {quiz_answer} for the guessing game.
+generate {count} questions about {quiz_answer} for the guessing game.
 
 for example, if the quiz answer is "apple", the questions could be "What is the color of this?", "What is the shape of this?", "What is the taste of this?"
 
@@ -15,7 +15,7 @@ for example, if the quiz answer is "apple", the questions could be "What is the 
     - question 1
     - question 2
     - ...
-    - question 20
+    - question {count}
 
 - do not use bullet points or other formatting. Just write the questions in a list.
 
