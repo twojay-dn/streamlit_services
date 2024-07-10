@@ -1,5 +1,6 @@
 import os, json, csv, hashlib, random, string
 from typing import List
+import streamlit as st
 
 implemented_prompt_list = [
     "hints_generation_prompt",
@@ -9,12 +10,22 @@ implemented_prompt_list = [
 resources_directory = f"{os.getcwd()}/resource"
 prompts_directory = f"{resources_directory}/prompts"
 
-
 def hash(text : str, length : int = 10) -> str:
     return (hashlib.sha256(text.encode("utf-8")).hexdigest(), 16)[:length]
 
 def get_random_text(length : int) -> str:
     return "".join(random.choice(string.ascii_letters + string.digits) for _ in range(length))
+
+def get_api_key() -> str:
+    runtime_env = os.getenv("RUN_ENV")
+    match runtime_env:
+        case "local":
+            api_key = os.getenv("OPENAI_API_KEY")
+        case "production":
+            api_key = st.secrets["OPENAI_API_KEY"]
+        case _:
+            raise ValueError("RUN_ENV must be 'local' or 'production' to use OpenAI")
+    return api_key
 
 def get_prompt_path(prompt_name : str) -> str:
     assert prompt_name in implemented_prompt_list, f"Invalid prompt name : {prompt_name}"

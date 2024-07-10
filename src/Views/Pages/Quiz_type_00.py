@@ -36,7 +36,7 @@ def chat_part():
     )
     chatbox.render()
 
-@render_page(name="Chat")
+@render_page(name="Quiz_type_00")
 def page():
     tabs = BaseTabs([
         ("Generate Hints", generate_hints),
