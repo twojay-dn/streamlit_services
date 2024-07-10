@@ -6,11 +6,19 @@ def page():
     st.text_input("enter the answer")
     st.button("Generate")
     
-    def first_col():
-        st.write("This is the first column")
+    def hints_dashboard():
+        st.write("Hints")
+        st.write("Hints")
+        st.write("Hints")
+        st.write("Hints")
+        st.write("Hints")
     
-    def second_col():
-        st.write("This is the second column")
+    def questions_dashboard():
+        st.write("Questions")
+        st.write("Questions")
+        st.write("Questions")
+        st.write("Questions")
+        st.write("Questions")
     
-    cols = BaseColumns([first_col, second_col])
+    cols = BaseColumns([hints_dashboard, questions_dashboard])
     cols.render()

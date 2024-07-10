@@ -1,5 +1,5 @@
 import streamlit as st
-from typing import Callable, Literal, List
+from typing import Callable, Literal, List, Tuple
 
 title_description = "Sidebar"
 page_choise_description = "Sidebar"
@@ -26,7 +26,7 @@ class BaseColumns:
     def __init__(self,
             column_callbacks : List[Callable] = None,
             widths : List[int] = None,
-            gap : Literal["small", "medium", "large"] = "small",
+            gap : Literal["small", "medium", "large"] = "small"
         ):
         if column_callbacks is None:
             column_callbacks = []
@@ -52,6 +52,22 @@ class BaseColumns:
         for index, column_callback in self.columns:
             with col_list[index]:
                 column_callback()
+
+class VerticalColumns(BaseColumns):
+    def __init__(self,
+            column_callbacks : List[Callable] = None,
+            widths : List[int] = None,
+            gap : Literal["small", "medium", "large"] = "small",
+        ):
+        super().__init__(column_callbacks, widths, gap)
+        self.columns = column_callbacks
+
+    def render(self):
+        containers = [st.container() for _ in range(len(self.columns))]
+        for callback, container in zip(self.columns, containers):
+            with container:
+                callback()
+                st.divider()
 
 class BasePage:
     def __init__(self, name : str, description : str = None):
@@ -97,3 +113,50 @@ class ChatBoxComponent:
         with self.history_container:
             for message in self.memory.get_memory():
                 st.chat_message(message["role"]).write(message["content"])
+
+
+from typing import Callable
+from src.Controllers import BaseController
+from src.Controllers.LLM import HyperParameter
+
+def hyperparameter_config_asset(target_params_getter: Callable[[], HyperParameter]) -> Callable:
+    def hyperparameter(func: Callable) -> Callable:
+        def wrapper(label, min_value, max_value, step, value):
+            target_params = target_params_getter()
+            result = func(label, min_value, max_value, step, value)
+            if target_params is not None:
+                target_params.set(label, result)
+            return result
+        return wrapper
+    return hyperparameter
+
+@hyperparameter_config_asset(lambda: BaseController.get_state("params"))
+def slider(label, min_value, max_value, step, value):
+    return st.slider(
+        label=label, 
+        min_value=min_value, 
+        max_value=max_value, 
+        step=step, 
+        value=value,
+    )
+
+@hyperparameter_config_asset(lambda: BaseController.get_state("params"))
+def number_inputbox(label, min_value, max_value, step, value):
+    return st.number_input(
+        label=label,
+        min_value=min_value,
+        max_value=max_value,
+        step=step,
+        value=value,
+    )
+
+class BaseTabs:
+    def __init__(self, tabs_pages : List[Tuple[str, Callable]]):
+        self.tab_labels = [label for label, _ in tabs_pages]
+        self.callbacks = [callback for _, callback in tabs_pages]
+        
+    def render(self):
+        tabs = st.tabs(self.tab_labels)
+        for tab, callback in zip(tabs, self.callbacks):
+            with tab:
+                callback()
