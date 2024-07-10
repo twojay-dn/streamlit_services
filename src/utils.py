@@ -16,6 +16,10 @@ def hash(text : str, length : int = 10) -> str:
 def get_random_text(length : int) -> str:
     return "".join(random.choice(string.ascii_letters + string.digits) for _ in range(length))
 
+
+
+from dotenv import load_dotenv
+load_dotenv()
 def get_api_key() -> str:
     runtime_env = os.getenv("RUN_ENV")
     match runtime_env:
