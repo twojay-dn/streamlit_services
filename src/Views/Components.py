@@ -107,13 +107,12 @@ class ChatBoxComponent:
         with self.input_container:
             if prompt := st.chat_input("Enter your message"):
                 self.memory.add_message("user", prompt)
-                response = self.llm.inference("user", prompt, self.memory)
+                response = self.llm.inference(prompt, self.memory)
                 self.memory.add_message("assistant", response)
 
         with self.history_container:
             for message in self.memory.get_memory():
                 st.chat_message(message["role"]).write(message["content"])
-
 
 from typing import Callable
 from src.Controllers import BaseController

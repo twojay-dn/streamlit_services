@@ -18,7 +18,6 @@ def chat_part():
 def page():
     tabs = BaseTabs([
         ("Generate Hints", generate_hints),
-        ("Generate Questions", generate_questions),
-        ("Chat", chat_part)
+        ("Generate Questions", generate_questions)
     ])
     tabs.render()
