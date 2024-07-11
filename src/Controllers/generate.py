@@ -21,14 +21,13 @@ def inference_generation_questions(answer : str = "", count : int = 0, model_nam
     prompt = PromptTemplate.from_template(
         get_questions_gen_prompt()
     )
-    formatted_prompt = prompt.format(quiz_answer=answer, count=count)
     llm = ChatOpenAI(
         model=model_name,
         api_key=api_key,
         temperature=0.7,
         top_p=0.95
     )
-    chain = formatted_prompt | llm | parser
+    chain = prompt | llm | parser
     return chain.invoke({
         "quiz_answer": answer, 
         "count": count, 

@@ -3,7 +3,7 @@ from src.Controllers import BaseController
 from src.Views.Components import render_page, ChatBoxComponent, BaseTabs
 from src.Controllers.ChatMemory import MemoryController
 from src.Controllers.LLM import OpenAIController
-from src.Views.Pages.Sections.Quiz_hint import generate_hints
+from src.Views.Pages.Sections.Quiz_hint import generate_questions
 
 def chat_part():
     BaseController.set_state("memory", MemoryController())
@@ -17,7 +17,7 @@ def chat_part():
 @render_page(name="Quiz_type_00")
 def page():
     tabs = BaseTabs([
-        ("Generate Hints", generate_hints),
+        ("Generate Hints", generate_questions),
         ("Chat", chat_part)
     ])
     tabs.render()
