@@ -1,11 +1,10 @@
 from enum import Enum
-from .Pages import Config, Generation, Quiz_type_00, Quiz_type_01, Quiz_type_02
+from .Pages import Config, Generation_HQ, Quiz
 
 class View_pages(Enum):
     Config = "Config"
-    Quiz_type_00 = "Quiz_type_00"
-    Quiz_type_01 = "Quiz_type_01"
-    Quiz_type_02 = "Quiz_type_02"
+    Generation_HQ = "Generation_HQ"
+    Quiz = "Quiz"
     
     @staticmethod
     def get_view_list(retrieve_value: bool = False):
@@ -16,9 +15,7 @@ class View_pages(Enum):
 
 __all__ = [
     "View_pages",
-    "Quiz_type_00",
-    "Quiz_type_01",
-    "Quiz_type_02",
     "Config",
-    "Generation"
+    "Generation_HQ",
+    "Quiz"
 ]
