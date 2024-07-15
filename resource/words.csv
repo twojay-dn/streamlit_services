@@ -1,249 +1,250 @@
-word
-airplane
-ant
-apple
-arm
-baby
-bag
-ball
-banana
-bear
-bed
-bee
-bell
-bike
-bird
-birthday
-black
-blue
-boat
-book
-box
-bread
-brick
-bridge
-brother
-brush
-bubble
-butterfly
-button
-cake
-camera
-candy
-car
-cat
-chair
-cheese
-chicken
-chocolate
-church
-circle
-clock
-cloth
-cloud
-coat
-coin
-computer
-cookie
-cotton
-cow
-cup
-dad
-dance
-day
-desk
-dog
-doll
-door
-dream
-dress
-drill
-drum
-duck
-ear
-earth
-egg
-elephant
-eye
-face
-family
-farm
-father
-fence
-finger
-fire
-fish
-flag
-floor
-flower
-flower
-food
-foot
-fork
-friend
-frog
-fruit
-game
-garden
-gate
-gift
-girl
-glasses
-glue
-goat
-grass
-green
-hair
-hammer
-hand
-happy
-hat
-hat
-head
-heart
-helicopter
-hill
-home
-horse
-hospital
-hot
-house
-hungry
-ice
-ice cream
-island
-jacket
-jacket
-jeans
-juice
-key
-king
-kitchen
-kite
-knife
-lamp
-leaf
-leg
-letter
-library
-light
-linen
-lion
-love
-lunch
-man
-map
-milk
-money
-monkey
-moon
-morning
-mother
-mountain
-mouse
-mouth
-movie
-music
-nail
-name
-needle
-nest
-night
-nose
-notebook
-ocean
-orange
-owl
-park
-party
-pen
-pen
-pencil
-pig
-pillow
-pipe
-pizza
-plane
-plant
-plate
-playground
-police
-potato
-purple
-queen
-quilt
-rabbit
-rain
-rainbow
-red
-rice
-river
-road
-rock
-room
-rope
-rose
-ruler
-sad
-sand
-saw
-school
-school
-screw
-sea
-sheep
-ship
-shirt
-shoe
-silk
-sister
-sky
-sleep
-snake
-snow
-soap
-sock
-socks
-sofa
-song
-spoon
-square
-stapler
-star
-street
-string
-summer
-sun
-table
-tape
-teacher
-telephone
-television
-thread
-tiger
-towel
-toy
-train
-tree
-tree
-truck
-turtle
-umbrella
-up
-van
-violin
-wall
-watch
-water
-white
-wind
-window
-winter
-woman
-wool
-xylophone
-yellow
-yo-yo
-zebra
-zipper
-zoo
+word,category
+airplane,Transportation
+ant,Animals
+apple,Food and Drinks
+arm,Body Parts
+baby,People and Relationships
+bag,Clothing and Accessories
+ball,Toys and Games
+banana,Food and Drinks
+beach,Nature and Environment
+bear,Animals
+bed,Household Items
+bee,Animals
+bell,Household Items
+bike,Transportation
+bird,Animals
+birthday,Time and Weather
+black,Colors
+blue,Colors
+boat,Transportation
+book,School and Education
+box,Household Items
+bread,Food and Drinks
+brick,Materials
+bridge,Buildings and Places
+brother,People and Relationships
+brush,Household Items
+bubble,Toys and Games
+bus,Transportation
+butterfly,Animals
+button,Clothing and Accessories
+cake,Food and Drinks
+camera,Technology and Electronics
+candy,Food and Drinks
+car,Transportation
+cat,Animals
+chair,Household Items
+cheese,Food and Drinks
+chicken,Animals
+chocolate,Food and Drinks
+church,Buildings and Places
+circle,Numbers and Shapes
+clock,Household Items
+cloth,Materials
+cloud,Nature and Environment
+coat,Clothing and Accessories
+coin,Numbers and Shapes
+computer,Technology and Electronics
+cookie,Food and Drinks
+cotton,Materials
+cow,Animals
+cup,Household Items
+dad,People and Relationships
+dance,Music and Arts
+day,Time and Weather
+desk,Household Items
+dog,Animals
+doll,Toys and Games
+door,Household Items
+dream,Emotions and Feelings
+dress,Clothing and Accessories
+drill,Tools and Equipment
+drum,Music and Arts
+duck,Animals
+ear,Body Parts
+earth,Nature and Environment
+egg,Food and Drinks
+elephant,Animals
+eye,Body Parts
+face,Body Parts
+family,People and Relationships
+farm,Buildings and Places
+father,People and Relationships
+fence,Household Items
+finger,Body Parts
+fire,Nature and Environment
+fish,Animals
+flag,Household Items
+floor,Household Items
+flower,Nature and Environment
+food,Food and Drinks
+foot,Body Parts
+fork,Household Items
+friend,People and Relationships
+frog,Animals
+fruit,Food and Drinks
+game,Toys and Games
+garden,Nature and Environment
+gate,Household Items
+gift,Toys and Games
+girl,People and Relationships
+glasses,Clothing and Accessories
+glue,School and Education
+goat,Animals
+grass,Nature and Environment
+green,Colors
+hair,Body Parts
+hammer,Tools and Equipment
+hand,Body Parts
+happy,Emotions and Feelings
+hat,Clothing and Accessories
+head,Body Parts
+heart,Body Parts
+helicopter,Transportation
+hill,Nature and Environment
+home,Buildings and Places
+horse,Animals
+hospital,Buildings and Places
+hot,Emotions and Feelings
+house,Buildings and Places
+hungry,Emotions and Feelings
+ice,Nature and Environment
+ice cream,Food and Drinks
+island,Nature and Environment
+jacket,Clothing and Accessories
+jeans,Clothing and Accessories
+juice,Food and Drinks
+jump,Body Parts
+key,Household Items
+king,People and Relationships
+kitchen,Household Items
+kite,Toys and Games
+knife,Household Items
+lamp,Household Items
+leaf,Nature and Environment
+leg,Body Parts
+letter,School and Education
+library,Buildings and Places
+light,Household Items
+linen,Materials
+lion,Animals
+love,Emotions and Feelings
+lunch,Food and Drinks
+man,People and Relationships
+map,School and Education
+milk,Food and Drinks
+money,Numbers and Shapes
+monkey,Animals
+moon,Nature and Environment
+morning,Time and Weather
+mother,People and Relationships
+mountain,Nature and Environment
+mouse,Animals
+mouth,Body Parts
+movie,Music and Arts
+music,Music and Arts
+nail,Body Parts
+name,People and Relationships
+needle,Household Items
+nest,Animals
+night,Time and Weather
+nose,Body Parts
+notebook,School and Education
+ocean,Nature and Environment
+orange,Food and Drinks
+owl,Animals
+pants,Clothing and Accessories
+park,Buildings and Places
+party,Toys and Games
+pen,School and Education
+pencil,School and Education
+phone,Technology and Electronics
+pig,Animals
+pillow,Household Items
+pipe,Household Items
+pizza,Food and Drinks
+plane,Transportation
+plant,Nature and Environment
+plate,Household Items
+playground,Buildings and Places
+police,Jobs and Occupations
+potato,Food and Drinks
+purple,Colors
+queen,People and Relationships
+quilt,Household Items
+rabbit,Animals
+rain,Nature and Environment
+rainbow,Nature and Environment
+red,Colors
+rice,Food and Drinks
+river,Nature and Environment
+road,Transportation
+rock,Nature and Environment
+room,Household Items
+rope,Tools and Equipment
+rose,Nature and Environment
+ruler,School and Education
+sad,Emotions and Feelings
+sand,Nature and Environment
+saw,Tools and Equipment
+school,Buildings and Places
+screw,Tools and Equipment
+sea,Nature and Environment
+sheep,Animals
+ship,Transportation
+shirt,Clothing and Accessories
+shoe,Clothing and Accessories
+shoes,Clothing and Accessories
+silk,Materials
+sister,People and Relationships
+sky,Nature and Environment
+sleep,Emotions and Feelings
+snake,Animals
+snow,Nature and Environment
+soap,Household Items
+sock,Clothing and Accessories
+socks,Clothing and Accessories
+sofa,Household Items
+song,Music and Arts
+spoon,Household Items
+square,Numbers and Shapes
+stapler,School and Education
+star,Nature and Environment
+street,Buildings and Places
+string,Materials
+summer,Time and Weather
+sun,Nature and Environment
+table,Household Items
+tape,School and Education
+teacher,Jobs and Occupations
+telephone,Technology and Electronics
+television,Technology and Electronics
+thread,Materials
+tiger,Animals
+towel,Household Items
+toy,Toys and Games
+train,Transportation
+tree,Nature and Environment
+truck,Transportation
+turtle,Animals
+umbrella,Clothing and Accessories
+up,Numbers and Shapes
+vacation,Time and Weather
+van,Transportation
+violin,Music and Arts
+wall,Household Items
+watch,Technology and Electronics
+water,Nature and Environment
+white,Colors
+wind,Nature and Environment
+window,Household Items
+winter,Time and Weather
+woman,People and Relationships
+wool,Materials
+xylophone,Music and Arts
+yellow,Colors
+yo-yo,Toys and Games
+zebra,Animals
+zipper,Clothing and Accessories
+zoo,Buildings and Places

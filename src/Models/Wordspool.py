@@ -10,4 +10,6 @@ class WordsPool:
     def get_random_word(cls):
         if not hasattr(cls, "words"):
             cls.init()
-        return random.choice(cls.words)
+        random_word = random.choice(cls.words)
+        return random_word
+

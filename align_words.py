@@ -8,6 +8,9 @@ df = pd.read_csv(file_path)
 # 정렬할 열의 이름 (예: 'name')
 column_to_sort_by = 'word'  # 여기에 정렬할 열 이름을 입력하세요
 
+# 중복된 단어 제거
+df = df.drop_duplicates(subset=[column_to_sort_by])
+
 # 특정 열을 기준으로 알파벳 정렬
 df_sorted = df.sort_values(by=column_to_sort_by, ascending=True)
 
