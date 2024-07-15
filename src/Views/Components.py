@@ -129,7 +129,7 @@ def hyperparameter_config_asset(target_params_getter: Callable[[], HyperParamete
         return wrapper
     return hyperparameter
 
-@hyperparameter_config_asset(lambda: BaseController.get_state("params"))
+@hyperparameter_config_asset(lambda: BaseController.get("params"))
 def slider(label, min_value, max_value, step, value):
     return st.slider(
         label=label, 
@@ -139,7 +139,7 @@ def slider(label, min_value, max_value, step, value):
         value=value,
     )
 
-@hyperparameter_config_asset(lambda: BaseController.get_state("params"))
+@hyperparameter_config_asset(lambda: BaseController.get("params"))
 def number_inputbox(label, min_value, max_value, step, value):
     return st.number_input(
         label=label,

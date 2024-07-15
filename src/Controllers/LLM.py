@@ -2,24 +2,11 @@ from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from src.utils import get_api_key
 from abc import ABC, abstractmethod
-from typing import Literal, Callable, Any, List
+from typing import Callable, Any, List
 from src.Controllers.ChatMemory import BaseMemoryController
 import types
-import streamlit as st
-import os
-import inspect
+from src.utils import validate_function_params, load_prompt_from_name
 
-def validate_params(required : List[str] = []):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            inference_callback = args[1]  # 첫 번째 인자는 self, 두 번째 인자가 inference_callback
-            sig = inspect.signature(inference_callback)
-            for param in required:
-                if param not in sig.parameters:
-                    raise ValueError(f"inference_callback must have a '{param}' parameter")
-            return func(*args, **kwargs)
-        return wrapper
-    return decorator
 
 class BaseLLMController(ABC):
     def __init__(self, model : str, api_key : str = None):
@@ -33,25 +20,38 @@ class BaseLLMController(ABC):
     def inference(self, prompt : str, memory : BaseMemoryController):
         pass
     
-    @validate_params(required = ["self", "prompt"])
+    @validate_function_params(required = ["self", "prompt", "memory"])
     def overwrite_call_to_inference(self, inference_callback : Callable):
         assert isinstance(inference_callback, types.FunctionType), "inference must be a function"
         self.inference = types.MethodType(inference_callback, self)
 
 class OpenAIController(BaseLLMController):
-    def __init__(self, model : str, api_key : str = None):
+    def __init__(self, model : str, api_key : str = None, sysprompt_key : str = None):
         super().__init__(model, api_key)
         self.client = OpenAI(api_key=self.api_key)
-    
+        if sysprompt_key is not None:
+            self.system_prompt = load_prompt_from_name(sysprompt_key)
     
     def inference(self, prompt : str, messages : BaseMemoryController):
         messages = messages.get_memory()
+        if self.system_prompt is not None:
+            messages = [{"role": "system", "content": self.system_prompt}] + messages
         response = self.client.chat.completions.create(
             model=self.model,
             messages=messages
         )
         response = response.choices[0].message.content
         return response
+    
+    def set_system_prompt(self, sysprompt_path : str):
+        with open(sysprompt_path, "r") as file:
+            self.sysprompt = file.read()
+
+    def insert_prompt_parameters(self, parameters : dict):
+        for key, value in parameters.items():
+            if key not in self.system_prompt:
+                raise ValueError(f"Key {key} is not in the system prompt")
+            self.system_prompt = self.system_prompt.replace(f"{key}", value)
 
 class LangchainOpenaiController(BaseLLMController):
     def __init__(self, model : str, api_key : str = None):

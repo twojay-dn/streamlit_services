@@ -7,8 +7,8 @@ from src.utils import load_default_config_json
 @render_page(name="Config")
 def page():
     input_data = load_default_config_json()
-    BaseController.set_state("params", HyperParameter(**input_data), overwrite=False)
-    hyper_params = BaseController.get_state("params")
+    BaseController.set("params", HyperParameter(**input_data), overwrite=False)
+    hyper_params = BaseController.get("params")
 
     def config_panel():
         slider("temperature", float(0.0), float(1.0), float(0.1), float(hyper_params.get("temperature", 0.5)))
@@ -19,7 +19,7 @@ def page():
     
     def model_selection():
         st.write("Model Selection")
-        st.selectbox("Model", BaseController.get_state("supported_models"))
+        st.selectbox("Model", BaseController.get("supported_models"))
     
     def config_dashboard():
         st.write(hyper_params.unpack())

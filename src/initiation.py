@@ -7,7 +7,7 @@ import streamlit as st
 def preprocess():
     st.set_page_config(layout="centered")
     metadata = load_json("resource/metadata.json")
-    BaseController.set_state("supported_models", metadata["supported_models"])
+    BaseController.set("supported_models", metadata["supported_models"])
 
 def init():
     preprocess()

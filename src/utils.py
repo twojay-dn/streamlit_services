@@ -4,7 +4,8 @@ import streamlit as st
 
 implemented_prompt_list = [
     "hints_generation_prompt",
-    "questions_generation_prompt"
+    "questions_generation_prompt",
+    "system_Quiz_type_00"
 ]
 
 resources_directory = f"{os.getcwd()}/resource"
@@ -60,10 +61,26 @@ def load_words() -> List[str]:
             result.append(row)
     return result
 
+
+import inspect
+
+def validate_function_params(required : List[str] = []):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            inference_callback = args[1]  # 첫 번째 인자는 self, 두 번째 인자가 inference_callback
+            sig = inspect.signature(inference_callback)
+            for param in required:
+                if param not in sig.parameters:
+                    raise ValueError(f"inference_callback must have a '{param}' parameter")
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
 __all__ = [
     "hash",
     "get_random_text",
     "load_prompt_from_name",
     "load_default_config_json",
-    "load_words"
+    "load_words",
+    "validate_function_params"
 ]

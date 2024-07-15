@@ -16,7 +16,7 @@ def get_questions_gen_prompt():
 def get_hints_gen_prompt():
     return load_prompt_from_name("hints_generation_prompt")
 
-def inference_generation_questions(answer : str = "", count : int = 0, model_name : str = "gpt-3.5-turbo") -> List[str]:
+def inference_generation_questions(target_word : str = "", count : int = 0, model_name : str = "gpt-3.5-turbo") -> List[str]:
     parser =  JsonOutputParser(pydantic_object=QuestionList)
     prompt = PromptTemplate.from_template(
         get_questions_gen_prompt()
@@ -29,7 +29,7 @@ def inference_generation_questions(answer : str = "", count : int = 0, model_nam
     )
     chain = prompt | llm | parser
     return chain.invoke({
-        "quiz_answer": answer, 
+        "quiz_category": target_word, 
         "count": count, 
         "format_instructions": parser.get_format_instructions()
     })
