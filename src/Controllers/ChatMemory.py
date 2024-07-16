@@ -19,6 +19,10 @@ class BaseMemoryController(ABC):
 	def get_memory(self):
 		pass
 
+	@abstractmethod
+	def clear_memory(self):
+		pass
+
 class MemoryController(BaseMemoryController):
 	def __init__(self, limit_turn : int = 200):
 		self.memory = []
@@ -31,6 +35,9 @@ class MemoryController(BaseMemoryController):
 
 	def get_memory(self) -> List[Dict[str, str]]:
 		return self.memory
+
+	def clear_memory(self):
+		self.memory = []
 
 class LangchainMemoryController(BaseMemoryController):
 	def __init__(self, limit_turn : int = 200):
@@ -51,3 +58,6 @@ class LangchainMemoryController(BaseMemoryController):
 
 	def get_memory(self) -> List[Dict[str, str]]:
 		return self.memory
+
+	def clear_memory(self):
+		self.memory.clear()

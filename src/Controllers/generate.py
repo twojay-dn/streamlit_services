@@ -24,8 +24,7 @@ def inference_generation_questions(target_word : str = "", count : int = 0, mode
     llm = ChatOpenAI(
         model=model_name,
         api_key=api_key,
-        temperature=0.7,
-        top_p=0.95
+        temperature=0.65,
     )
     chain = prompt | llm | parser
     return chain.invoke({
@@ -42,8 +41,7 @@ def inference_generation_hints(answer : str = "", count : int = 0, model_name : 
     llm = ChatOpenAI(
         model=model_name,
         api_key=api_key,
-        temperature=0.7,
-        top_p=0.95
+        temperature=0.65,
     )
     chain = prompt | llm | parser
     return chain.invoke({

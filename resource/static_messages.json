@@ -1,3 +1,46 @@
 {
-  "correct" : []
+  "correct" : [
+    "You got it right!",
+    "Wow, correct answer!",
+    "Bingo! You nailed it!",
+    "Great guess! That's it!",
+    "Spot on! Well done!",
+    "Yay! You figured it out!",
+    "Awesome job! That's correct!",
+    "Perfect guess! You win!",
+    "You're right on the money!",
+    "Bullseye! Great guessing!",
+    "Ding ding ding! We have a winner!",
+    "Excellent! You solved it!",
+    "Amazing guess! You're right!",
+    "Hooray! You got the answer!",
+    "Brilliant! You guessed correctly!",
+    "Fantastic job! That's the one!",
+    "You cracked the code! Well done!",
+    "Super guess! You're correct!",
+    "Winner winner! You got it!",
+    "Ta-da! You solved the puzzle!"
+  ],
+  "welcome" : [
+    "Let's play a fun guessing game!",
+    "Can you guess what I'm thinking of?",
+    "Join our guessing game - it's super fun!",
+    "Who wants to play a cool guessing game?",
+    "Ready for a game of guesses?",
+    "Guess with us and have a blast!",
+    "Time for a fun guessing challenge!",
+    "Want to test your guessing skills?",
+    "Come play our awesome guessing game!",
+    "Guess what? We're playing a game!",
+    "Join in - can you guess right?",
+    "Let's see how good you are at guessing!",
+    "Guessing game time - are you ready?",
+    "Play along and make your best guess!",
+    "Who's up for a quick guessing game?",
+    "Try our fun game of guesses!",
+    "Guess with friends - it's game time!",
+    "Think you're good at guessing? Prove it!",
+    "Jump in and start guessing with us!",
+    "Let's have fun guessing together!"
+  ]
 }

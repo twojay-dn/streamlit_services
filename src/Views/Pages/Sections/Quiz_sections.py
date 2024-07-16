@@ -4,6 +4,21 @@ from src.Views.Components import BaseColumns, ChatBoxComponent
 from src.Models.Wordspool import WordsPool
 from src.Controllers.ChatMemory import MemoryController
 from src.Controllers.LLM import OpenAIController
+import random
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def init(temporary_controller : TempController = None, need_base_controller : bool = False):
 	controller = temporary_controller
@@ -47,53 +62,92 @@ def init(temporary_controller : TempController = None, need_base_controller : bo
 	])
 	temps.render()
 	st.divider()
-	if controller.get("target_word", None) is not None:
+	if can_we_start_quiz() is False:
 		generate_hint_and_question(verbose=True)
 
-import random
-def quiz_flow(self, prompt, memory):
-  answer = BaseController.get("target_word")
-  hints = BaseController.get("hints").get("hints")
-  questions = BaseController.get("questions").get("questions")
-  print(answer, hints, questions)
-  filleter_none_list = list(filter(lambda v: v is None, [answer, hints, questions]))
-  if len(filleter_none_list) != 0:
-    raise ValueError(f"Please set the target word first. : {filleter_none_list}")
-  if BaseController.get("try_count") > 10:
-    return f"You wrong. Let's think carefully about this. - {pickup_hint}"
-  pickup_hint = random.choice(hints)
-  if is_contains_answer(prompt, answer):
-    return f"You correct. the answer is {answer}."
-  else:
-    messages = memory.get_memory()
-    self.insert_prompt_parameters({
+def quiz_flow(self, prompt, memory ):
+	answer = BaseController.get("target_word")
+	hints = BaseController.get("hints")
+	questions = BaseController.get("questions")
+	if hints is None or questions is None:
+		return "hints or questions is None, return 'Init' page......"
+	else:
+		hints = hints.get("hints")
+		questions = questions.get("questions")
+	if BaseController.get("try_count") > 10:
+		return f"Your try count is over 10, return 'Init' page....."
+	if is_contains_answer(prompt, answer):
+		import time
+		time.sleep(1)
+		pickup_correct = random.choice(BaseController.get("correct_messages"))
+		return f"{pickup_correct} - the answer is {answer}."
+	else:
+		messages = memory.get_memory()
+		self.insert_prompt_parameters({
 			"quiz_answer" : answer
-    })
-    if self.system_prompt is not None:
-      messages = [{"role": "system", "content": self.system_prompt}] + messages
-    response = self.client.chat.completions.create(
+		})
+		if self.system_prompt is not None:
+			messages = [{"role": "system", "content": self.system_prompt}] + messages
+		response = self.client.chat.completions.create(
 			model=self.model,
 			messages=messages
 		)
-    response = response.choices[0].message.content
-    BaseController.set("try_count", BaseController.get("try_count") + 1)
-    return f"{response} - {pickup_hint}"
+		response = response.choices[0].message.content
+		pickup_hint = random.choice(hints)
+		BaseController.set("try_count", BaseController.get("try_count") + 1)
+		return f"{response} - {pickup_hint}"
 
 from re import sub
 def is_contains_answer(text : str, answer : str) -> bool:
+	if text is None or answer is None:
+		return False
 	text = sub(r'[^\w\s]', ' ', text)
 	return answer in text
 
-def chat_part():
+from src.Views.Components import BaseButton
+
+def use_question_hint():
+	questions = BaseController.get("questions").get("questions")
+	assert isinstance(questions, list), "questions must be a list"
+	pickup_question = random.choice(questions)
+	BaseController.set("used_question_hint", pickup_question, overwrite=True)
+	print(pickup_question)
+
+def clear_quiz(chatbox, delete_quiz : bool = True):
+	if delete_quiz:
+		BaseController.delete("target_word")
+		BaseController.delete("hints")
+		BaseController.delete("questions")
 	BaseController.delete("memory")
 	BaseController.delete("llm")
+	chatbox.clear_history()
+
+def can_we_start_quiz():
+	controller = BaseController
+	condition = controller.get("target_word", None) is not None and controller.get("hints", None) is not None and controller.get("questions", None) is not None
+	return condition
+
+def chat_part():
 	BaseController.set("try_count", 0)
-	BaseController.set("memory", MemoryController())
-	llm = OpenAIController("gpt-3.5-turbo", sysprompt_key="system_Quiz_type_00")
-	llm.overwrite_call_to_inference(quiz_flow)
-	BaseController.set("llm", llm)
+	if BaseController.get("memory", None) is None:
+		BaseController.set("memory", MemoryController())
+	if BaseController.get("llm", None) is None:
+		llm = OpenAIController("gpt-3.5-turbo", sysprompt_key="system_Quiz_type_00")
+		llm.overwrite_call_to_inference(quiz_flow)
+		BaseController.set("llm", llm)
+	BaseButton("힌트", use_question_hint).render()
 	chatbox = ChatBoxComponent(
 		memory=BaseController.get("memory"),
-		llm=BaseController.get("llm")
+		llm=BaseController.get("llm"),
+		first_assistant_start=True
 	)
-	chatbox.render()
+	BaseButton("초기화", lambda : clear_quiz(chatbox, delete_quiz=False)).render()
+	if can_we_start_quiz():
+		chatbox.set_assistant_start_message(random.choice(BaseController.get("welcome_messages")))
+		if BaseController.get("used_question_hint", None) is not None:
+			chatbox.set_static_response(BaseController.get("used_question_hint"))
+			BaseController.delete("used_question_hint")
+		chatbox.render()
+	else:
+		chatbox.set_assistant_start_message("정답 단어를 입력하거나 단어풀에서 랜덤하게 고르세요")
+		chatbox.render()

@@ -11,15 +11,6 @@ for example, if the quiz answer is "fruit", the questions could be : "Is this fr
 
 ### Ordering
 When creating questions, arrange them in a clear order from first to last, with the correct answer. The clearer the answer, the later it should be.
-
-- You must use the following format as list:
-[
-    hint 1,
-    hint 2,
-    ...,
-    hint {count},
-]
-
 - do not use bullet points or other formatting. Just write the questions in a list.
 
 ### Format

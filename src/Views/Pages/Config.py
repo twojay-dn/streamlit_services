@@ -12,7 +12,7 @@ def page():
 
     def config_panel():
         slider("temperature", float(0.0), float(1.0), float(0.1), float(hyper_params.get("temperature", 0.5)))
-        slider("top_p", float(0.0), float(1.0), float(0.01), float(hyper_params.get("top_p", 0.9)))
+        # slider("top_p", float(0.0), float(1.0), float(0.01), float(hyper_params.get("top_p", 0.9)))
         slider("frequency_penalty", float(-2.0), float(2.0), float(0.1), float(hyper_params.get("frequency_penalty", 0.0)))
         slider("presence_penalty", float(-2.0), float(2.0), float(0.1), float(hyper_params.get("presence_penalty", 0.0)))
         number_inputbox("max_tokens", 1, 1000, 10, hyper_params.get("max_tokens", 100))
