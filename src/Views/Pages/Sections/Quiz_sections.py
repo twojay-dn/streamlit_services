@@ -6,20 +6,6 @@ from src.Controllers.ChatMemory import MemoryController
 from src.Controllers.LLM import OpenAIController
 import random
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def init(temporary_controller : TempController = None, need_base_controller : bool = False):
 	controller = temporary_controller
 	if controller is None:

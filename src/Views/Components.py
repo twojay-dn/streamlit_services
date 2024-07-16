@@ -30,6 +30,10 @@ class BaseColumns:
 		):
 		if column_callbacks is None:
 			column_callbacks = []
+		if widths is None:
+			widths = [1] * len(column_callbacks)
+		if not isinstance(column_callbacks, list):
+			raise ValueError("column_callbacks must be a list")
 		if not all(isinstance(column_callback, Callable) for column_callback in column_callbacks):
 			raise ValueError("All column_callbacks must be callable")
 		if widths is None:
