@@ -66,8 +66,12 @@ def random_generation_callback():
 def display_hint_and_question():
 	st.write(f"정답 단어: {controller.get(answer_word_key)}")
 	st.write(f"정답 단어 카테고리: {controller.get(answer_word_category_key)}")
-	st.write(controller.get(hints_key))
-	st.write(controller.get(questions_key))
+	hints = controller.get(hints_key)
+	questions = controller.get(questions_key)
+	controller.set("display_hints", hints.copy(), overwrite=True)
+	controller.set("display_questions", questions.copy(), overwrite=True)
+	st.write(f"힌트: {controller.get('display_hints')}")
+	st.write(f"질문: {controller.get('display_questions')}")
 
 def generation_column():
 	def text_input():
