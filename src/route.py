@@ -1,4 +1,4 @@
-from src.Views import Chat, Config
+from src.Views import Config, Chat
 
 def route(choise: str):
     match choise:

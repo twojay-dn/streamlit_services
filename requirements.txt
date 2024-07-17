@@ -1,3 +1,4 @@
 streamlit
 pydantic
 langchain
+python-dotenv
