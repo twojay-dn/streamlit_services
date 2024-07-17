@@ -31,6 +31,8 @@ def generate_hints(temporary_controller : TempController = None):
 	st.divider()
 	if tc.get("target_word", None) is not None:
 		st.write(f"정답 단어: {tc.get('target_word')}")
+	if tc.get("target_word_category", None) is not None:
+		st.write(f"정답 단어 카테고리: {tc.get('target_word_category')}")
 	if tc.get("hints", None) is not None:
 		st.write(tc.get("hints"))
 		
@@ -61,6 +63,8 @@ def generate_questions(temporary_controller : TempController = None):
 	st.divider()
 	if tc.get("target_word", None) is not None:
 		st.write(f"정답 단어: {tc.get('target_word')}")
+	if tc.get("target_word_category", None) is not None:
+		st.write(f"정답 단어 카테고리: {tc.get('target_word_category')}")
 	st.divider()
 	if tc.get("questions", None) is not None:
 		st.write(tc.get("questions"))
