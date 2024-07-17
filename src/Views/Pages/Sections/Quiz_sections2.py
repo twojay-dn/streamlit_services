@@ -168,7 +168,7 @@ def quiz_logic():
 			picked_hint = controller.get(hints_key).get("hints").pop() if controller.get(hints_key).get("hints") else None
 			response = f"{response} this is a hint: {picked_hint}"
 			memory.add_message("assistant", response)
-			controller.set(try_count_key, try_count + 1, overwrite=True)
+	controller.set(try_count_key, try_count + 1, overwrite=True)
 
 def chat_column():
 	height = 650
