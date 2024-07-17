@@ -18,8 +18,9 @@ def generate_hints(temporary_controller : TempController = None):
 	def random_generate():
 		st.write("단어풀에서 랜덤하게 고르세요")
 		if st.button("랜덤 생성", key="hint_random_generate"):
-			target_word = WordsPool.get_random_word()
+			target_word, target_word_category = WordsPool.get_random_word()
 			tc.set("target_word", target_word, overwrite=True)
+			tc.set("target_word_category", target_word_category, overwrite=True)
 			tc.set("hints", inference_generation_hints(tc.get("target_word"), 10), overwrite=True)
 
 	temps = BaseColumns([
@@ -47,9 +48,10 @@ def generate_questions(temporary_controller : TempController = None):
 	def random_generate():
 		st.write("단어풀에서 랜덤하게 고르세요")
 		if st.button("랜덤 생성", key="question_random_generate"):
-			target_word = WordsPool.get_random_word()
+			target_word, target_word_category = WordsPool.get_random_word()
 			tc.set("target_word", target_word, overwrite=True)
-			tc.set("questions", inference_generation_questions(tc.get("target_word"), 10), overwrite=True)
+			tc.set("target_word_category", target_word_category, overwrite=True)
+			tc.set("questions", inference_generation_questions(tc.get("target_word_category"), 10), overwrite=True)
 
 	temps = BaseColumns([
 		text_input,
