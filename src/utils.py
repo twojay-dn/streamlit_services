@@ -24,15 +24,16 @@ controller = {
 from dotenv import load_dotenv
 load_dotenv()
 def get_api_key() -> str:
-	runtime_env = controller.get("RUN_ENV")
-	match runtime_env:
-		case "local":
-			api_key = os.getenv("OPENAI_API_KEY")
-		case "production":
-			api_key = st.secrets["OPENAI_API_KEY"]
-		case _:
-			raise ValueError("RUN_ENV must be 'local' or 'production' to use OpenAI")
-	return api_key
+	# runtime_env = controller.get("RUN_ENV")
+	# match runtime_env:
+	# 	case "local":
+	# 		api_key = os.getenv("OPENAI_API_KEY")
+	# 	case "production":
+	# 		api_key = st.secrets["OPENAI_API_KEY"]
+	# 	case _:
+	# 		raise ValueError("RUN_ENV must be 'local' or 'production' to use OpenAI")
+	# return api_key
+	return st.secrets["OPENAI_API_KEY"]
 
 def get_prompt_path(prompt_name : str) -> str:
 	assert prompt_name in implemented_prompt_list, f"Invalid prompt name : {prompt_name}"
