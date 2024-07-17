@@ -160,8 +160,9 @@ def quiz_logic():
 			controller.set(is_end_key, True, overwrite=True)
 		else:
 			response = llm.inference(prompt, memory)
-			random_picked_hint = random.choice(controller.get(hints_key).get("hints"))
-			response = f"{response} this is a hint: {random_picked_hint}"
+			# random_picked_hint = random.choice(controller.get(hints_key).get("hints"))
+			picked_hint = controller.get(hints_key).get("hints").pop() if controller.get(hints_key).get("hints") else None
+			response = f"{response} this is a hint: {picked_hint}"
 			memory.add_message("assistant", response)
 			controller.set(try_count_key, try_count + 1, overwrite=True)
 
