@@ -70,8 +70,8 @@ def display_hint_and_question():
 	questions = controller.get(questions_key)
 	controller.set("display_hints", hints.copy(), overwrite=True)
 	controller.set("display_questions", questions.copy(), overwrite=True)
-	st.write(f"힌트: {controller.get('display_hints')}")
-	st.write(f"질문: {controller.get('display_questions')}")
+	st.write(controller.get('display_hints'))
+	st.write(controller.get('display_questions'))
 
 def generation_column():
 	def text_input():
