@@ -17,8 +17,15 @@ limit_try_count = 10
 
 def generation_hint_and_question(target_word, target_word_category):
 	hints = inference_generation_hints(target_word, 10)
-	questions = inference_generation_questions(target_word_category, 10)
-	return hints, questions
+	answer_questions = inference_generation_questions(target_word, 10)
+	category_questions = inference_generation_questions(target_word_category, 10)
+	
+	# 각 리스트에서 짝수 인덱스 항목만 선택
+	answer_questions = answer_questions[::2]
+	category_questions = category_questions[::2]
+	# 두 리스트 합치기
+	combined_questions = category_questions + answer_questions
+	return hints, combined_questions
 
 def safe_run_quiz():
 	hints = controller.get(hints_key)

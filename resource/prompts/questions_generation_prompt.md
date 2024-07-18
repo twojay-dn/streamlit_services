@@ -15,4 +15,3 @@ When creating questions, arrange them in a clear order from first to last, with 
 
 ### Format
 {format_instructions}
-

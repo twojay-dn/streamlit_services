@@ -16,6 +16,27 @@ def get_questions_gen_prompt():
 def get_hints_gen_prompt():
     return load_prompt_from_name("hints_generation_prompt")
 
+def get_prompt(key : str = ""):
+    return load_prompt_from_name(key)
+
+def inference_generation_list(key : str = "", target_word : str = "", count : int = 0, model_name : str = "gpt-3.5-turbo") -> List[str]:
+    prompt_text = get_prompt(key)
+    parser =  JsonOutputParser(pydantic_object=QuestionList)
+    prompt = PromptTemplate.from_template(
+        prompt_text
+    )
+    llm = ChatOpenAI(
+        model=model_name,
+        api_key=api_key,
+        temperature=0.65,
+    )
+    chain = prompt | llm | parser
+    return chain.invoke({
+        "quiz_category": target_word, 
+        "count": count, 
+        "format_instructions": parser.get_format_instructions()
+    })
+
 def inference_generation_questions(target_word : str = "", count : int = 0, model_name : str = "gpt-3.5-turbo") -> List[str]:
     parser =  JsonOutputParser(pydantic_object=QuestionList)
     prompt = PromptTemplate.from_template(
