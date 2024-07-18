@@ -26,6 +26,8 @@ def generation_hint_and_question(target_word, target_word_category):
 	combined_questions = {
 		"questions": answer_questions + category_questions
 	}
+	if combined_questions.get("questions") is None or len(combined_questions.get("questions")) == 10:
+		st.error("생성 도중에 에러가 발생했습니다. 다시 시도해주세요")
 	return hints, combined_questions
 
 def safe_run_quiz():
