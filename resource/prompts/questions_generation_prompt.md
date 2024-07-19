@@ -7,7 +7,7 @@ for example, if the quiz answer is "fruit", the questions could be : "Is this fr
 - {quiz_category} is the answer. So you must hide the answer in your questions.
 - Your questions are not allowed to be the same.
 - Your questions must be related to {quiz_category}. Use words and expressions that are related to {quiz_category}.
-- Your questions should understandable for 3rd grade and 4th grade students of an elementary school.
+- Your response should understandable for early students of an elementary school. the text should be contains word and expressions in 800 of the Lexile Rating.
 - Your questions should be easy to answer.
 
 ### Ordering
