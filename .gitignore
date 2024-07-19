@@ -137,3 +137,8 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+.streamlit/
+.streamlit/cache/
+.streamlit/config.toml
+.streamlit/secrets.toml
