@@ -4,8 +4,8 @@ from .Pages import Config, Generation_HQ, Quiz, Quiz_H2H
 class View_pages(Enum):
     Config = "Config"
     Generation_HQ = "Generation_HQ"
-    Quiz = "Quiz"
-    Quiz_H2H = "Quiz_H2H"
+    Quiz = "Quiz_v1"
+    Quiz_H2H = "Quiz_v2"
         
     @staticmethod
     def get_view_list(retrieve_value: bool = False):
