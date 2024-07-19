@@ -46,6 +46,7 @@ def inference_generation_questions(target_word : str = "", count : int = 0, mode
         model=model_name,
         api_key=api_key,
         temperature=0.65,
+        max_tokens=500,
     )
     chain = prompt | llm | parser
     return chain.invoke({
