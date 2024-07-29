@@ -20,13 +20,13 @@ def generation_question_by_target_word(target_word, target_word_category):
 	answer_questions = inference_generation_as_list(
 		prompt_key="questions_generation_prompt_v3",
 		target_list_class=QuestionList,
-		model_name="gpt-3.5-turbo",
+		model_name="gpt-4o-mini",
 		params={"quiz_category": target_word, "count": 10}
 	)
 	category_questions = inference_generation_as_list(
 		prompt_key="questions_generation_prompt_v3",
 		target_list_class=QuestionList,
-		model_name="gpt-3.5-turbo",
+		model_name="gpt-4o-mini",
 		params={"quiz_category": target_word_category, "count": 10}
 	)
 	# # 각 리스트에서 짝수 인덱스 항목만 선택
@@ -129,7 +129,7 @@ def init_quiz():
 	if is_need_init_quiz() is False:
 		try_count = controller.get(try_count_key, 0)
 		llm = OpenAIController(
-			"gpt-3.5-turbo",
+			"gpt-4o-mini",
 			sysprompt_key="system_Quiz_type_00"
 		)
 		memory = MemoryController()
@@ -162,7 +162,6 @@ def is_right_answer(
 	text = re.sub(r'\s+', ' ', text).strip()
 	word_list = text.split()
 	return answer_word in word_list
-
 
 
 def response_right_word():
@@ -223,7 +222,6 @@ def hint_button_callback():
 # 1. 힌트 제공기능 삭제 - v
 # 2. 질문에서 더 쉬운 단어 활용 - v
 # 3. 제시단어가 정답단어에 포함시, 정답 미인정으로 변경 - v
-# 6. AI 찬스 시에 질문이 매력도 기준 오름차순으로 나오도록 수정 - v
-# 5. 단어 오탐지, 단어 오발화 -v
 # 4. 봇에서 외부 매개변수로 정답여부 프롬프트에 주입 -> 발화
-
+# 5. 단어 오탐지, 단어 오발화
+# 6. AI 찬스 시에 질문이 매력도 기준 오름차순으로 나오도록 수정

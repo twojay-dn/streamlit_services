@@ -1,250 +1,391 @@
 word,category
-airplane,Transportation
-ant,Animals
-apple,Food and Drinks
-arm,Body Parts
-baby,People and Relationships
-bag,Clothing and Accessories
-ball,Toys and Games
-banana,Food and Drinks
-beach,Nature and Environment
-bear,Animals
-bed,Household Items
-bee,Animals
-bell,Household Items
-bike,Transportation
-bird,Animals
-birthday,Time and Weather
-black,Colors
-blue,Colors
-boat,Transportation
-book,School and Education
-box,Household Items
-bread,Food and Drinks
-brick,Materials
-bridge,Buildings and Places
-brother,People and Relationships
-brush,Household Items
-bubble,Toys and Games
-bus,Transportation
-butterfly,Animals
-button,Clothing and Accessories
-cake,Food and Drinks
-camera,Technology and Electronics
-candy,Food and Drinks
-car,Transportation
 cat,Animals
-chair,Household Items
-cheese,Food and Drinks
-chicken,Animals
-chocolate,Food and Drinks
-church,Buildings and Places
-circle,Numbers and Shapes
-clock,Household Items
-cloth,Materials
-cloud,Nature and Environment
-coat,Clothing and Accessories
-coin,Numbers and Shapes
-computer,Technology and Electronics
-cookie,Food and Drinks
-cotton,Materials
-cow,Animals
-cup,Household Items
-dad,People and Relationships
-dance,Music and Arts
-day,Time and Weather
-desk,Household Items
 dog,Animals
-doll,Toys and Games
-door,Household Items
-dream,Emotions and Feelings
-dress,Clothing and Accessories
-drill,Tools and Equipment
-drum,Music and Arts
-duck,Animals
-ear,Body Parts
-earth,Nature and Environment
-egg,Food and Drinks
-elephant,Animals
-eye,Body Parts
-face,Body Parts
-family,People and Relationships
-farm,Buildings and Places
-father,People and Relationships
-fence,Household Items
-finger,Body Parts
-fire,Nature and Environment
-fish,Animals
-flag,Household Items
-floor,Household Items
-flower,Nature and Environment
-food,Food and Drinks
-foot,Body Parts
-fork,Household Items
-friend,People and Relationships
-frog,Animals
-fruit,Food and Drinks
-game,Toys and Games
-garden,Nature and Environment
-gate,Household Items
-gift,Toys and Games
-girl,People and Relationships
-glasses,Clothing and Accessories
-glue,School and Education
-goat,Animals
-grass,Nature and Environment
-green,Colors
-hair,Body Parts
-hammer,Tools and Equipment
-hand,Body Parts
-happy,Emotions and Feelings
-hat,Clothing and Accessories
-head,Body Parts
-heart,Body Parts
-helicopter,Transportation
-hill,Nature and Environment
-home,Buildings and Places
-horse,Animals
-hospital,Buildings and Places
-hot,Emotions and Feelings
-house,Buildings and Places
-hungry,Emotions and Feelings
-ice,Nature and Environment
-ice cream,Food and Drinks
-island,Nature and Environment
-jacket,Clothing and Accessories
-jeans,Clothing and Accessories
-juice,Food and Drinks
-jump,Body Parts
-key,Household Items
-king,People and Relationships
-kitchen,Household Items
-kite,Toys and Games
-knife,Household Items
-lamp,Household Items
-leaf,Nature and Environment
-leg,Body Parts
-letter,School and Education
-library,Buildings and Places
-light,Household Items
-linen,Materials
 lion,Animals
-love,Emotions and Feelings
-lunch,Food and Drinks
-man,People and Relationships
-map,School and Education
-milk,Food and Drinks
-money,Numbers and Shapes
-monkey,Animals
-moon,Nature and Environment
-morning,Time and Weather
-mother,People and Relationships
-mountain,Nature and Environment
-mouse,Animals
-mouth,Body Parts
-movie,Music and Arts
-music,Music and Arts
-nail,Body Parts
-name,People and Relationships
-needle,Household Items
-nest,Animals
-night,Time and Weather
-nose,Body Parts
-notebook,School and Education
-ocean,Nature and Environment
-orange,Food and Drinks
-owl,Animals
-pants,Clothing and Accessories
-park,Buildings and Places
-party,Toys and Games
-pen,School and Education
-pencil,School and Education
-phone,Technology and Electronics
-pig,Animals
-pillow,Household Items
-pipe,Household Items
-pizza,Food and Drinks
-plane,Transportation
-plant,Nature and Environment
-plate,Household Items
-playground,Buildings and Places
-police,Jobs and Occupations
-potato,Food and Drinks
-purple,Colors
-queen,People and Relationships
-quilt,Household Items
-rabbit,Animals
-rain,Nature and Environment
-rainbow,Nature and Environment
-red,Colors
-rice,Food and Drinks
-river,Nature and Environment
-road,Transportation
-rock,Nature and Environment
-room,Household Items
-rope,Tools and Equipment
-rose,Nature and Environment
-ruler,School and Education
-sad,Emotions and Feelings
-sand,Nature and Environment
-saw,Tools and Equipment
-school,Buildings and Places
-screw,Tools and Equipment
-sea,Nature and Environment
-sheep,Animals
-ship,Transportation
-shirt,Clothing and Accessories
-shoe,Clothing and Accessories
-shoes,Clothing and Accessories
-silk,Materials
-sister,People and Relationships
-sky,Nature and Environment
-sleep,Emotions and Feelings
-snake,Animals
-snow,Nature and Environment
-soap,Household Items
-sock,Clothing and Accessories
-socks,Clothing and Accessories
-sofa,Household Items
-song,Music and Arts
-spoon,Household Items
-square,Numbers and Shapes
-stapler,School and Education
-star,Nature and Environment
-street,Buildings and Places
-string,Materials
-summer,Time and Weather
-sun,Nature and Environment
-table,Household Items
-tape,School and Education
-teacher,Jobs and Occupations
-telephone,Technology and Electronics
-television,Technology and Electronics
-thread,Materials
 tiger,Animals
-towel,Household Items
-toy,Toys and Games
-train,Transportation
-tree,Nature and Environment
-truck,Transportation
-turtle,Animals
-umbrella,Clothing and Accessories
-up,Numbers and Shapes
-vacation,Time and Weather
-van,Transportation
-violin,Music and Arts
-wall,Household Items
-watch,Technology and Electronics
-water,Nature and Environment
-white,Colors
-wind,Nature and Environment
-window,Household Items
-winter,Time and Weather
-woman,People and Relationships
-wool,Materials
-xylophone,Music and Arts
-yellow,Colors
-yo-yo,Toys and Games
+elephant,Animals
+giraffe,Animals
 zebra,Animals
-zipper,Clothing and Accessories
-zoo,Buildings and Places
+bear,Animals
+fox,Animals
+wolf,Animals
+rabbit,Animals
+mouse,Animals
+cow,Animals
+horse,Animals
+sheep,Animals
+goat,Animals
+chicken,Animals
+duck,Animals
+pig,Animals
+frog,Animals
+apple,Fruits
+banana,Fruits
+orange,Fruits
+grape,Fruits
+strawberry,Fruits
+pineapple,Fruits
+mango,Fruits
+peach,Fruits
+lemon,Fruits
+watermelon,Fruits
+cherry,Fruits
+pear,Fruits
+plum,Fruits
+kiwi,Fruits
+blueberry,Fruits
+raspberry,Fruits
+coconut,Fruits
+papaya,Fruits
+fig,Fruits
+lime,Fruits
+carrot,Vegetables
+potato,Vegetables
+tomato,Vegetables
+cucumber,Vegetables
+onion,Vegetables
+pepper,Vegetables
+broccoli,Vegetables
+spinach,Vegetables
+lettuce,Vegetables
+cabbage,Vegetables
+peas,Vegetables
+corn,Vegetables
+garlic,Vegetables
+ginger,Vegetables
+pumpkin,Vegetables
+eggplant,Vegetables
+zucchini,Vegetables
+beet,Vegetables
+cauliflower,Vegetables
+radish,Vegetables
+red,Colors
+blue,Colors
+yellow,Colors
+green,Colors
+orange,Colors
+purple,Colors
+pink,Colors
+brown,Colors
+black,Colors
+white,Colors
+gray,Colors
+violet,Colors
+indigo,Colors
+gold,Colors
+silver,Colors
+maroon,Colors
+beige,Colors
+turquoise,Colors
+teal,Colors
+navy,Colors
+shirt,Clothing
+pants,Clothing
+dress,Clothing
+skirt,Clothing
+shoes,Clothing
+socks,Clothing
+hat,Clothing
+gloves,Clothing
+scarf,Clothing
+jacket,Clothing
+coat,Clothing
+sweater,Clothing
+shorts,Clothing
+belt,Clothing
+tie,Clothing
+blouse,Clothing
+jeans,Clothing
+sneakers,Clothing
+boots,Clothing
+sandals,Clothing
+head,Body Parts
+arm,Body Parts
+leg,Body Parts
+hand,Body Parts
+foot,Body Parts
+ear,Body Parts
+nose,Body Parts
+eye,Body Parts
+mouth,Body Parts
+hair,Body Parts
+finger,Body Parts
+toe,Body Parts
+knee,Body Parts
+elbow,Body Parts
+shoulder,Body Parts
+back,Body Parts
+stomach,Body Parts
+chest,Body Parts
+neck,Body Parts
+waist,Body Parts
+car,Transport
+bus,Transport
+train,Transport
+bicycle,Transport
+airplane,Transport
+ship,Transport
+motorcycle,Transport
+scooter,Transport
+subway,Transport
+helicopter,Transport
+boat,Transport
+truck,Transport
+van,Transport
+taxi,Transport
+tram,Transport
+ferry,Transport
+jeep,Transport
+wagon,Transport
+canoe,Transport
+kayak,Transport
+Korea,Countries
+China,Countries
+Japan,Countries
+USA,Countries
+Canada,Countries
+Brazil,Countries
+UK,Countries
+France,Countries
+Germany,Countries
+Italy,Countries
+Russia,Countries
+India,Countries
+Australia,Countries
+Mexico,Countries
+Spain,Countries
+Egypt,Countries
+Denmark,Countries
+Argentina,Countries
+Norway,Countries
+Sweden,Countries
+soccer,Sports
+basketball,Sports
+baseball,Sports
+tennis,Sports
+golf,Sports
+volleyball,Sports
+cricket,Sports
+hockey,Sports
+swimming,Sports
+running,Sports
+cycling,Sports
+skiing,Sports
+snowboarding,Sports
+skating,Sports
+surfing,Sports
+boxing,Sports
+wrestling,Sports
+gymnastics,Sports
+taekwondo,Sports
+yoga,Sports
+bread,Food
+rice,Food
+noodles,Food
+pizza,Food
+hamburger,Food
+sandwich,Food
+salad,Food
+soup,Food
+steak,Food
+chicken,Food
+fish,Food
+egg,Food
+cheese,Food
+butter,Food
+milk,Food
+yogurt,Food
+cake,Food
+cookie,Food
+ice cream,Food
+chocolate,Food
+teacher,Jobs
+doctor,Jobs
+nurse,Jobs
+police officer,Jobs
+firefighter,Jobs
+soldier,Jobs
+pilot,Jobs
+chef,Jobs
+waiter,Jobs
+engineer,Jobs
+scientist,Jobs
+artist,Jobs
+musician,Jobs
+actor,Jobs
+writer,Jobs
+lawyer,Jobs
+judge,Jobs
+dentist,Jobs
+mechanic,Jobs
+driver,Jobs
+house,Buildings
+school,Buildings
+hospital,Buildings
+library,Buildings
+museum,Buildings
+church,Buildings
+temple,Buildings
+restaurant,Buildings
+hotel,Buildings
+office,Buildings
+store,Buildings
+mall,Buildings
+bank,Buildings
+cinema,Buildings
+theater,Buildings
+gym,Buildings
+stadium,Buildings
+zoo,Buildings
+castle,Buildings
+apartment,Buildings
+sunny,Weather
+rainy,Weather
+cloudy,Weather
+snowy,Weather
+windy,Weather
+stormy,Weather
+foggy,Weather
+humid,Weather
+dry,Weather
+hot,Weather
+cold,Weather
+warm,Weather
+cool,Weather
+breeze,Weather
+hail,Weather
+thunder,Weather
+lightning,Weather
+frost,Weather
+blizzard,Weather
+drought,Weather
+happy,Emotions
+sad,Emotions
+angry,Emotions
+scared,Emotions
+excited,Emotions
+nervous,Emotions
+surprised,Emotions
+bored,Emotions
+tired,Emotions
+confused,Emotions
+jealous,Emotions
+proud,Emotions
+embarrassed,Emotions
+ashamed,Emotions
+sleepy,Emotions
+lonely,Emotions
+grateful,Emotions
+hopeful,Emotions
+worried,Emotions
+calm,Emotions
+circle,Shapes
+square,Shapes
+triangle,Shapes
+rectangle,Shapes
+oval,Shapes
+diamond,Shapes
+star,Shapes
+heart,Shapes
+pentagon,Shapes
+hexagon,Shapes
+octagon,Shapes
+cube,Shapes
+sphere,Shapes
+cylinder,Shapes
+cone,Shapes
+pyramid,Shapes
+kitchen,Rooms
+bedroom,Rooms
+bathroom,Rooms
+living room,Rooms
+dining room,Rooms
+garage,Rooms
+basement,Rooms
+attic,Rooms
+balcony,Rooms
+hallway,Rooms
+office,Rooms
+playroom,Rooms
+laundry room,Rooms
+pantry,Rooms
+closet,Rooms
+guest room,Rooms
+storage room,Rooms
+study,Rooms
+mother,Family
+father,Family
+sister,Family
+brother,Family
+grandmother,Family
+grandfather,Family
+uncle,Family
+aunt,Family
+cousin,Family
+niece,Family
+nephew,Family
+husband,Family
+wife,Family
+son,Family
+daughter,Family
+parent,Family
+tree,Nature
+flower,Nature
+grass,Nature
+mountain,Nature
+river,Nature
+lake,Nature
+ocean,Nature
+beach,Nature
+desert,Nature
+forest,Nature
+jungle,Nature
+volcano,Nature
+island,Nature
+waterfall,Nature
+cave,Nature
+cliff,Nature
+hill,Nature
+valley,Nature
+plain,Nature
+glacier,Nature
+math,School Subject
+science,School Subject
+history,School Subject
+geography,School Subject
+art,School Subject
+music,School Subject
+physical education,School Subject
+english,School Subject
+korean,School Subject
+computer science,School Subject
+biology,School Subject
+chemistry,School Subject
+physics,School Subject
+literature,School Subject
+social studies,School Subject
+economics,School Subject
+philosophy,School Subject
+psychology,School Subject
+sociology,School Subject
+politics,School Subject
+doll,Toys
+teddy bear,Toys
+lego,Toys
+car,Toys
+train,Toys
+puzzle,Toys
+ball,Toys
+kite,Toys
+yo-yo,Toys
+marbles,Toys
+action figure,Toys
+board game,Toys
+bicycle,Toys
+scooter,Toys
+robot,Toys
+playdough,Toys
+crayons,Toys
+blocks,Toys
+trampoline,Toys
+swing,Toys

@@ -2,6 +2,8 @@ generate {count} questions about {quiz_category} for the guessing game.
 
 for example, if the quiz answer is "fruit", the questions could be : "Is this fruit typically red on the outside?", "Does this fruit grow on trees?", "Does this fruit have seeds inside that are commonly eaten?"
 
+and we need also several questions which are not related to {quiz_category}.
+
 ### Constraints
 - {quiz_category} is the answer. So you must hide the answer in your questions.
 - Your questions are not allowed to be the same.

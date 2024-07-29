@@ -1,4 +1,4 @@
-from src.Views import Config, Generation_HQ, Quiz_v1, Quiz_v2, Quiz_v3
+from src.Views import Config, Generation_HQ, Quiz_v1, Quiz_v2, Quiz_v3, Quiz_v3_4omini
 
 def route(choise: str):
     target_page = None
@@ -13,4 +13,6 @@ def route(choise: str):
             target_page = Quiz_v2
         case "Quiz_v3":
             target_page = Quiz_v3
+        case "Quiz_v3_4omini":
+            target_page = Quiz_v3_4omini
     target_page.page()

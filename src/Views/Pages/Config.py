@@ -17,13 +17,16 @@ def page():
         slider("presence_penalty", float(-2.0), float(2.0), float(0.1), float(hyper_params.get("presence_penalty", 0.0)))
         number_inputbox("max_tokens", 1, 1000, 10, hyper_params.get("max_tokens", 100))
     
-    def model_selection():
-        st.write("Model Selection")
-        st.selectbox("Model", BaseController.get("supported_models"))
+    # def model_selection():
+    #     st.write("Model Selection")
+    #     selected_model = st.selectbox("Model", BaseController.get("supported_models"))
+    #     if selected_model != hyper_params.get("model_name"):
+    #         BaseController.set("params", HyperParameter(**input_data, model_name=selected_model), overwrite=False)
     
     def config_dashboard():
         st.write(hyper_params.unpack())
-    vc = VerticalColumns(column_callbacks=[model_selection, config_dashboard])
+    # vc = VerticalColumns(column_callbacks=[model_selection, config_dashboard])
+    vc = VerticalColumns(column_callbacks=[config_dashboard])
 
     config_columns = BaseColumns(
         column_callbacks=[config_panel, vc.render],

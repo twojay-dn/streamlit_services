@@ -6,7 +6,8 @@ implemented_prompt_list = [
 	"hints_generation_prompt",
 	"questions_generation_prompt",
 	"system_Quiz_type_00",
-	"questions_generation_prompt_v3"
+	"questions_generation_prompt_v3",
+	"questions_generation_prompt_v3.01"
 ]
 
 resources_directory = f"{os.getcwd()}/resource"
