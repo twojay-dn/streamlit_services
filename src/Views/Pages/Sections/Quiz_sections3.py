@@ -147,11 +147,19 @@ def get_random_welcome_message():
 
 import re
 
-def is_right_answer(prompt, answer_word):
+def is_right_answer(
+  prompt : str, 
+  answer_word : str
+) -> bool:
 	if prompt is None or answer_word is None:
 		return False
-	text = re.sub(r'[^\w\s]', ' ', prompt)
-	return answer_word in text
+	prompt = prompt.lower()
+	answer_word = answer_word.lower()
+	text = re.sub(r'[^a-zA-Z0-9\s]', ' ', prompt)
+	text = re.sub(r'\s+', ' ', text).strip()
+	word_list = text.split()
+	return answer_word in word_list
+
 
 def response_right_word():
 	import time
