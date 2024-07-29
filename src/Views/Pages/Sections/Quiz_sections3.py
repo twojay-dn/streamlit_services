@@ -1,7 +1,8 @@
 import streamlit as st
-from src.Controllers import BaseController, inference_generation_hints, inference_generation_questions
+from src.Controllers import BaseController, inference_generation_as_list
 from src.Views.Components import BaseColumns
 from src.Models.Wordspool import WordsPool
+from src.Models.pydantic_models import QuestionList
 import random
 
 controller = BaseController
@@ -15,10 +16,19 @@ memory_key = "memory"
 is_end_key = "is_end"
 limit_try_count = 10
 
-def generation_hint_and_question(target_word, target_word_category):
-	hints = inference_generation_hints(target_word, 10)
-	answer_questions = inference_generation_questions(target_word, 10)
-	category_questions = inference_generation_questions(target_word_category, 10)
+def generation_question_by_target_word(target_word, target_word_category):
+	answer_questions = inference_generation_as_list(
+		prompt_key="questions_generation_prompt_v3",
+		target_list_class=QuestionList,
+		model_name="gpt-3.5-turbo",
+		params={"quiz_category": target_word, "count": 10}
+	)
+	category_questions = inference_generation_as_list(
+		prompt_key="questions_generation_prompt_v3",
+		target_list_class=QuestionList,
+		model_name="gpt-3.5-turbo",
+		params={"quiz_category": target_word_category, "count": 10}
+	)
 	# 각 리스트에서 짝수 인덱스 항목만 선택
 	answer_questions = answer_questions.get("questions")[::2]
 	category_questions = category_questions.get("questions")[::2]
@@ -28,32 +38,27 @@ def generation_hint_and_question(target_word, target_word_category):
 	}
 	if combined_questions.get("questions") is None or len(combined_questions.get("questions")) != 10:
 		st.error("생성 도중에 에러가 발생했습니다. 다시 시도해주세요")
-	if hints is None or len(hints.get("hints")) != 10:
-		st.error("생성 도중에 에러가 발생했습니다. 다시 시도해주세요")
-	return hints, combined_questions
+	return combined_questions
 
 def safe_run_quiz():
-	hints = controller.get(hints_key)
 	questions = controller.get(questions_key)
 	llm = controller.get(llm_key)
 	memory = controller.get(memory_key)
 	answer_word = controller.get(answer_word_key)
 	answer_word_category = controller.get(answer_word_category_key)
-	return all([hints, questions, llm, memory, answer_word, answer_word_category])
+	return all([questions, llm, memory, answer_word, answer_word_category])
 
 def safe_display_quiz():
-	hints = controller.get(hints_key)
 	questions = controller.get(questions_key)
 	answer_word = controller.get(answer_word_key)
 	answer_word_category = controller.get(answer_word_category_key)
-	return all([hints, questions, answer_word, answer_word_category])
+	return all([questions, answer_word, answer_word_category])
 
 def generation_button_callback(input_word, input_word_category):
 	if input_word and input_word_category:
 		controller.set(answer_word_key, input_word, overwrite=True)
 		controller.set(answer_word_category_key, input_word_category, overwrite=True)
-		hints, questions = generation_hint_and_question(input_word, input_word_category)
-		controller.set(hints_key, hints, overwrite=True)
+		questions = generation_question_by_target_word(input_word, input_word_category)
 		controller.set(questions_key, questions, overwrite=True)
 	else:
 		st.error("정답 단어와 정답 단어 카테고리를 입력해주세요")	
@@ -61,7 +66,6 @@ def generation_button_callback(input_word, input_word_category):
 def reset_button_callback():
 	controller.set(answer_word_key, None, overwrite=True)
 	controller.set(answer_word_category_key, None, overwrite=True)
-	controller.set(hints_key, None, overwrite=True)
 	controller.set(questions_key, None, overwrite=True)
 	controller.set(try_count_key, 0, overwrite=True)
 	controller.set(memory_key, None, overwrite=True)
@@ -71,18 +75,14 @@ def random_generation_callback():
 	target_word, target_word_category = WordsPool.get_random_word()
 	controller.set(answer_word_key, target_word, overwrite=True)
 	controller.set(answer_word_category_key, target_word_category, overwrite=True)
-	hints, questions = generation_hint_and_question(target_word, target_word_category)
-	controller.set(hints_key, hints, overwrite=True)
+	questions = generation_question_by_target_word(target_word, target_word_category)
 	controller.set(questions_key, questions, overwrite=True)
 
 def display_hint_and_question():
 	st.write(f"정답 단어: {controller.get(answer_word_key)}")
 	st.write(f"정답 단어 카테고리: {controller.get(answer_word_category_key)}")
-	hints = controller.get(hints_key)
 	questions = controller.get(questions_key)
-	controller.set("display_hints", hints.copy(), overwrite=True)
 	controller.set("display_questions", questions.copy(), overwrite=True)
-	st.write(controller.get('display_hints'))
 	st.write(controller.get('display_questions'))
 
 def generation_column():
@@ -176,9 +176,6 @@ def quiz_logic():
 			controller.set(is_end_key, True, overwrite=True)
 		else:
 			response = llm.inference(prompt, memory)
-			# random_picked_hint = random.choice(controller.get(hints_key).get("hints"))
-			picked_hint = controller.get(hints_key).get("hints").pop() if controller.get(hints_key).get("hints") else None
-			response = f"{response} this is a hint: {picked_hint}"
 			memory.add_message("assistant", response)
 			controller.set(try_count_key, try_count + 1, overwrite=True)
 
@@ -209,3 +206,11 @@ def hint_button_callback():
 	# 마지막 원소를 리스트에서 제거하고 반환
 	prompt = question_list.pop() if question_list else None
 	return prompt
+
+# 작업 주안점
+# 1. 힌트 제공기능 삭제 - v
+# 2. 질문에서 더 쉬운 단어 활용 - v
+# 3. 봇에서 외부 매개변수로 정답여부 프롬프트에 주입 -> 발화
+# 4. AI 찬스 시에 질문이 매력도 기준 오름차순으로 나오도록 수정
+# 5. 단어 오탐지, 단어 오발화
+# 6. 제시단어가 정답단어에 포함시, 정답 미인정으로 변경
