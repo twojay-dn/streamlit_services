@@ -46,6 +46,8 @@ def inference_generation_as_list(
   params["format_instructions"] = parser.get_format_instructions()
   return chain.invoke(params)
 
+# Those function is legacy code
+# Do not edit this code because it is used in the old version
 def inference_generation_questions(target_word : str = "", count : int = 0, model_name : str = "gpt-3.5-turbo") -> List[str]:
   parser =  JsonOutputParser(pydantic_object=QuestionList)
   prompt = PromptTemplate.from_template(

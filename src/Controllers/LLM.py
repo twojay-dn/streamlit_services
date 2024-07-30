@@ -38,7 +38,6 @@ class OpenAIController(BaseLLMController):
 		messages = messages.get_memory()
 		if self.system_prompt is not None:
 			messages = [{"role": "system", "content": self.system_prompt}] + messages
-		print(messages)
 		response = self.client.chat.completions.create(
 			model=self.model,
 			messages=messages
