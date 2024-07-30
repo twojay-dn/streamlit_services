@@ -6,10 +6,6 @@ Here is the user's dream:
 
 ### Drawing Style
 - Make a prompt to draw a dream in a style of {style_name}.
-- Here is the few-shot examples of {style_name}:
-```
-{few_shot_examples}
-```
 
 ### Output Format
 Write a prompt to draw a dream in a style of {style_name}.
@@ -23,18 +19,4 @@ target_object, target_place, and target_description can be extracted from the us
 ### Output
 - Response in English
 - Response in 400 words or less
-- The output should be formatted as a JSON instance that conforms to the JSON schema below.
-
-As an example, for the schema {{"properties": {{"foo": {{"title": "Foo", "description": "a list of strings", "type": "array", "items": {{"type": "string"}}}}}}, "required": ["foo"]}}
-the object {{"foo": ["bar", "baz"]}} is a well-formatted instance of the schema. The object {{"properties": {{"foo": ["bar", "baz"]}}}} is not well-formatted.
-
-Here is the output schema:
-```json
-{
-  "prompt" : {
-    "title" : "prompt",
-    "description" : "a prompt to draw a dream in a style of {style_name}.",
-    "type" : "string"
-  }
-}
-```
+{format_instruction}

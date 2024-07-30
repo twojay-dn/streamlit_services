@@ -4,26 +4,28 @@ from classes.llm import Memory, Openai_LLM_Client
 from utils import read_json, read_file
 import os
 
+from .shared import resources_path, prompt_path
+
 @st.cache_data
 def get_config(path : str=None) -> Dict[str, Any]:
   if path is None:
-    path = f"{os.getcwd()}/model.config"
+    path = f"{resources_path}/model.config"
   return read_json(path)
 
 @st.cache_data
 def get_system_prompt(path : str=None):
   if path is None:
-    path = f"{os.getcwd()}/resources/prompts/dream_dialogue.md"
+    path = f"{resources_path}/prompts/dream_dialogue.md"
   return read_file(path)
 
 llm_client_phase_inform = Openai_LLM_Client(
   params=get_config(),
-  system_prompt=get_system_prompt(f"{os.getcwd()}/resources/prompts/dream_dialogue_phase_inform.md")
+  system_prompt=get_system_prompt(f"{prompt_path}/dream_dialogue_phase_inform.md")
 )
 
 llm_client_phase_summary = Openai_LLM_Client(
   params=get_config(),
-  system_prompt=get_system_prompt(f"{os.getcwd()}/resources/prompts/dream_dialogue_phase_summary.md")
+  system_prompt=get_system_prompt(f"{prompt_path}/dream_dialogue_phase_summary.md")
 )
 
 def init_memory(memory_key_in_state : str):
@@ -68,7 +70,7 @@ def call_to_summary(memory : Memory) -> str:
 
 from dream_lib.static_messages import greeting
 import random
-from shared import dream_image_key, dalle_drawing_style_code
+from .shared import dream_image_key, dalle_drawing_style_code
 
 def talk_dream(memory_key_in_state : str) -> None:
   memory = init_memory(memory_key_in_state)

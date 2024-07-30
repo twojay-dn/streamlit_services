@@ -1,3 +1,5 @@
+import os
+
 dream_image_key = "dream_image"
 dalle_drawing_style_code = [
   "Barbizon School",
@@ -8,3 +10,11 @@ dalle_drawing_style_code = [
   "Scandinavian Minimalism",
   "Watercolor"
 ]
+
+resources_path = f"{os.getcwd()}/resources/"
+prompt_path = f"{resources_path}/prompts/"
+
+image_generation_parameter = {
+  "ratio" : "16:9",
+  "size" : "1024x1024"
+}

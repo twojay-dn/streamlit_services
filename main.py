@@ -3,7 +3,7 @@ import os
 
 from page_callbacks.route import run
 
-page_directory = f"{os.getcwd()}/pages"
+page_directory = f"{os.getcwd()}/page_callbacks/route"
 
 pages = [
   st.Page(

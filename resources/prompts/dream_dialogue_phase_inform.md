@@ -46,7 +46,7 @@ This is the past conversation:
 ### output
 - response in 70 words or less.
 - response in Korean.
-- response in a declarative way. Do not use any pointing form. 
+- response in a declarative way. Do not use any pointing form.
 - The output should be formatted as a JSON instance that conforms to the JSON schema below.
 
 As an example, for the schema {{"properties": {{"foo": {{"title": "Foo", "description": "a list of strings", "type": "array", "items": {{"type": "string"}}}}}}, "required": ["foo"]}}
