@@ -68,6 +68,7 @@ def call_to_summary(memory : Memory) -> str:
 
 from dream_lib.static_messages import greeting
 import random
+from shared import dream_image_key, dalle_drawing_style_code
 
 def talk_dream(memory_key_in_state : str) -> None:
   memory = init_memory(memory_key_in_state)
@@ -99,22 +100,7 @@ def talk_dream(memory_key_in_state : str) -> None:
     if _last_response and _last_response['is_end'] == True:
       st.success("꿈 내용 요약을 성공적으로 생성했습니다.")
       summary = call_to_summary(memory)
+      st.session_state[dream_image_key] = summary
       st.write(summary)
     else:
       st.info("아직 꿈에 대한 정보를 생성하지 않았습니다.")
-
-tab_list = [
-  "꿈 내용 이야기하기",
-  "꿈 내용 정보 추출 및 요약",
-  "꿈 이미지 생성"
-]
-
-def run(key : str):
-  tab1, tab2, tab3 = st.tabs(tab_list)
-  
-  with tab1:
-    talk_dream("dream_talk")
-  with tab2:
-    st.write("꿈 내용 정보 추출 및 요약")
-  with tab3:
-    st.write("꿈 이미지 생성")
