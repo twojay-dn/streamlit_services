@@ -1,6 +1,9 @@
 {
-    "temperature" : 0.35,
-    "max_tokens" : 300,
-    "frequency_penalty" : 0,
-    "presence_penalty" : 0
+  "temperature" : 0.35,
+  "max_tokens" : 300,
+  "frequency_penalty" : 0,
+  "presence_penalty" : 0,
+  "class" : {
+    "name" : "사물의 의성어, 자신의 감정을 의성어로 표현하기"
+  }
 }
