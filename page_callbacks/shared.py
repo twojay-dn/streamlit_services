@@ -18,3 +18,4 @@ image_generation_parameter = {
   "ratio" : "16:9",
   "size" : "1024x1024"
 }
+images_list_key = "images_list"

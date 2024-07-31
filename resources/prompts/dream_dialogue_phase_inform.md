@@ -40,7 +40,7 @@ If you asked all the information from user's dream and user's message, now you c
 ### conversation history
 This is the past conversation:
 ```
-{conversation}
+<conversation>
 ```
 
 ### output

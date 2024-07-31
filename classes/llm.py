@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 import streamlit as st
 from openai import OpenAI
 from abc import ABC, abstractmethod
+import utils
 
 class Memory:
   def __init__(self):
@@ -37,10 +38,6 @@ class Model_client(ABC):
     if system_prompt is None or len(system_prompt) == 0:
       raise ValueError("System prompt is empty")
 
-  @abstractmethod
-  def inference(self, prompt : str, memory : Memory) -> str:
-    pass
-
 class Openai_LLM_Client(Model_client):
   def __init__(self, *, params : Dict[str, str] = {}, system_prompt : str = None):
     super().__init__(params=params, system_prompt=system_prompt)
@@ -48,8 +45,8 @@ class Openai_LLM_Client(Model_client):
 
   # prompt text 자체는 매개변수로 안받음.
   # prompt text를 Memory에 넣어주는 건 View (streamlit interface)의 권한으로 넘김
-  def inference(self, memory : Memory) -> str:
-    temp_prompt = self.system_prompt.replace("{conversation}", str(memory))
+  def inference_with_memory(self, memory : Memory) -> str:
+    temp_prompt = utils.insert_parameters(self.system_prompt, {"conversation" : str(memory)})
     response = self.client.chat.completions.create(
       model=self.model_name,
       messages=[{"role": "user", "content": temp_prompt}],
@@ -57,11 +54,33 @@ class Openai_LLM_Client(Model_client):
     )
     return response.choices[0].message.content
 
+  def inference_with_prompt(self, prompt : str) -> str:
+    response = self.client.chat.completions.create(
+      model=self.model_name,
+      messages=[{"role": "user", "content": prompt}],
+      **self.model_params
+    )
+    return response.choices[0].message.content
+  
+  def generate_image(self, params : Dict[str, str]) -> str:
+    if "model" not in params:
+      params["model"] = self.model_name
+    if "prompt" not in params:
+      raise ValueError("Prompt is empty")
+    response = self.client.images.generate(
+      model=self.model_name,
+      **params
+    )
+    return response.data[0].url
+
 def get_api_key() -> str:
   return st.secrets.OPENAI_API_KEY
 
-def inference(model_client : Model_client, memory : Memory) -> str:
-  return model_client.inference(memory)
+def chat_inference(model_client : Model_client, memory : Memory) -> str:
+  return model_client.inference_with_memory(memory)
+
+def single_inference(model_client : Model_client, prompt : str) -> str:
+  return model_client.inference_with_prompt(prompt)
 
 # JSON 파싱 이후 후처리 함수의 형식 지정
 # 파싱되어서 json으로 변환한 뒤에 추가적인 작업을 하고자 할 때,

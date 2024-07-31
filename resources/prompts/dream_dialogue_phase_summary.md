@@ -9,7 +9,7 @@ You are a dream teller that do a task to summarize the dream information from th
 ### conversation history
 This is the past conversation:
 ```
-{conversation}
+<conversation>
 ```
 
 ### output
