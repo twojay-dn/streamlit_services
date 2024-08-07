@@ -9,7 +9,7 @@ from classes.llm import Retrier, CONDITION_FORMAT
 
 dalle_client = OpenAI(api_key=st.secrets.get("OPENAI_API_KEY"))
 
-def generate_prompt_Dalle(dream_info : json, style_name : str):
+def generate_prompt_Dalle(dream_info : json, style_name : str, n : int = 1):
 	client = OpenAI()
 	system_prompt = get_system_prompt(f"{prompt_path}/dream_drawing_prompt_making.md")
 	system_prompt = insert_parameters(system_prompt, {
@@ -18,6 +18,7 @@ def generate_prompt_Dalle(dream_info : json, style_name : str):
 		"ratio" : image_generation_parameter["ratio"]
 	})
 	response = client.chat.completions.create(
+		n = n,
 		model="gpt-4o",
 		messages=[
 			{"role": "system", "content": system_prompt}
@@ -26,7 +27,22 @@ def generate_prompt_Dalle(dream_info : json, style_name : str):
 	)
 	return response.choices[0].message.content
 
-
+def generate_prompt_Blockade(dream_info : json, style_name : str, n : int = 1):
+	client = OpenAI()
+	system_prompt = get_system_prompt(f"{prompt_path}/dream_drawing_prompt_making_blockade.md")
+	system_prompt = insert_parameters(system_prompt, {
+		"user_dream_information" : str(dream_info),
+		"style_name" : style_name,
+	})
+	response = client.chat.completions.create(
+		n = n,
+		model="gpt-4o",
+		messages=[
+			{"role": "system", "content": system_prompt}
+		],
+		temperature=0.7
+	)
+	return response.choices[0].message.content
 
 def generate_image_Dalle(prompt : str, n : int = 1, size : str = "1024x1024"):
 	response = dalle_client.images.generate(
@@ -46,6 +62,13 @@ def call_to_generate_image(prompt : str):
 def call_to_generate_dalle_prompt(dream_info : json, style_name : str):
 	return generate_prompt_Dalle(dream_info, style_name)
 
+@Retrier.retry_on_invalid_response(
+	max_tries=3,
+	condition_format=CONDITION_FORMAT.JSON
+)
+def call_to_generate_Blockade_prompt(dream_info : json, style_name : str):
+	return generate_prompt_Blockade(dream_info, style_name)
+
 # 여러스타일로 많이? 단일 스타일로?
 def dream_image():
 	if st.session_state.get(dream_image_key) is None:
@@ -59,7 +82,11 @@ def dream_image():
 	for _ in range(4):
 		style = random.choice(dalle_drawing_style_code)
 		st.write(f"스타일 : {style}")
-		prompt : json = call_to_generate_dalle_prompt(dream_info, style)
+		dream_info_for_prompt = {
+			"dream_content" : dream_info['summary'],
+			"dream_information" : dream_info['dream_information']
+		}
+		prompt : json = call_to_generate_dalle_prompt(dream_info_for_prompt, style)
 		st.write(f"생성 결과물 : {prompt}")
 		st.write(f"프롬프트 텍스트 : {prompt.get('prompt')}")
 		image_url : str = call_to_generate_image(prompt.get("prompt"))

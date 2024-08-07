@@ -2,7 +2,8 @@ import streamlit as st
 from typing import Dict, Any
 from classes.llm import Memory, Openai_LLM_Client, chat_inference
 from utils import get_config, get_system_prompt
-from .shared import resources_path, prompt_path
+from .shared import *
+from .phase_02 import call_to_generate_Blockade_prompt
 
 llm_client_phase_inform = Openai_LLM_Client(
   params=get_config(),

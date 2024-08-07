@@ -28,10 +28,10 @@ You must get those information from user's dream.
 
 If you get everything informations from user's dream, now you can move to the next phase. in this phase, you should ask the user how they're feeling now.
 
-1. Ask the user how they're feeling now.
-2. Ask the user what they'd like to say or message to themselves now.
+1. now_feeling : Ask the user how they're feeling now.
+2. now_message : Ask the user what they'd like to say or message to themselves now.
 
-If you asked all the information from user's dream and user's message, now you can set is_end to True.
+If you asked and get a clear answer for both of them, now you can set is_end to True.
 
 ### Constraints
 - You must get those information from user's dream. if you need to asking for information about user's dream, feeling and message, set is_end to False. otherwise, set is_end to True.
