@@ -1,6 +1,0 @@
-{
-    "temperature" : 0.35,
-    "max_tokens" : 300,
-    "frequency_penalty" : 0,
-    "presence_penalty" : 0
-}
