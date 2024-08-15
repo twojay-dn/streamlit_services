@@ -11,6 +11,16 @@ def data_init(state_manager : st.session_state = st.session_state):
 	state_manager.setdefault("is_end", False)
 	state_manager.setdefault("question_hint_index", 0)
 
+def data_reinit(state_manager : st.session_state = st.session_state):
+    state_manager["try_count"] = 0
+    state_manager["question_hint_index"] = 0
+    state_manager["is_end"] = False
+    state_manager["chat_memory"] = ChatMemory()
+    state_manager["generated_questions"] = []
+    state_manager["target_word"] = ""
+    state_manager["target_category"] = ""
+    state_manager["answer_word"] = ""
+
 def display_history(component = st, state_manager : st.session_state = st.session_state):
     for message in state_manager.get("chat_memory").get_messages():
         with component.chat_message(message["role"]):
@@ -46,10 +56,15 @@ def chat_interface(component = st, state_manager : st.session_state = st.session
             "answer_input" : answer_input,
             "answer_input": answer_input or None,
             "history_container": history_container,
-            "question_hint_button": question_hint_button
+            "question_hint_button": question_hint_button,
+            "restart_button": restart_button
         })
 
 def quiz_controller(component = st, state_manager : st.session_state = st.session_state, input_data : Data = None):
+    # 리스트 초기화
+    if input_data.get("restart_button") == True:
+        data_reinit(state_manager)
+        return
     # 정답 맞추었을 시
     if state_manager.get("is_end") == True:
         component.success(f"이미 정답을 맞추었습니다. 정답은 {state_manager.get('target_word')}입니다.")
