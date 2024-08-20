@@ -1,0 +1,391 @@
+word,category
+cat,Animals
+dog,Animals
+lion,Animals
+tiger,Animals
+elephant,Animals
+giraffe,Animals
+zebra,Animals
+bear,Animals
+fox,Animals
+wolf,Animals
+rabbit,Animals
+mouse,Animals
+cow,Animals
+horse,Animals
+sheep,Animals
+goat,Animals
+chicken,Animals
+duck,Animals
+pig,Animals
+frog,Animals
+apple,Fruits
+banana,Fruits
+orange,Fruits
+grape,Fruits
+strawberry,Fruits
+pineapple,Fruits
+mango,Fruits
+peach,Fruits
+lemon,Fruits
+watermelon,Fruits
+cherry,Fruits
+pear,Fruits
+plum,Fruits
+kiwi,Fruits
+blueberry,Fruits
+raspberry,Fruits
+coconut,Fruits
+papaya,Fruits
+fig,Fruits
+lime,Fruits
+carrot,Vegetables
+potato,Vegetables
+tomato,Vegetables
+cucumber,Vegetables
+onion,Vegetables
+pepper,Vegetables
+broccoli,Vegetables
+spinach,Vegetables
+lettuce,Vegetables
+cabbage,Vegetables
+peas,Vegetables
+corn,Vegetables
+garlic,Vegetables
+ginger,Vegetables
+pumpkin,Vegetables
+eggplant,Vegetables
+zucchini,Vegetables
+beet,Vegetables
+cauliflower,Vegetables
+radish,Vegetables
+red,Colors
+blue,Colors
+yellow,Colors
+green,Colors
+orange,Colors
+purple,Colors
+pink,Colors
+brown,Colors
+black,Colors
+white,Colors
+gray,Colors
+violet,Colors
+indigo,Colors
+gold,Colors
+silver,Colors
+maroon,Colors
+beige,Colors
+turquoise,Colors
+teal,Colors
+navy,Colors
+shirt,Clothing
+pants,Clothing
+dress,Clothing
+skirt,Clothing
+shoes,Clothing
+socks,Clothing
+hat,Clothing
+gloves,Clothing
+scarf,Clothing
+jacket,Clothing
+coat,Clothing
+sweater,Clothing
+shorts,Clothing
+belt,Clothing
+tie,Clothing
+blouse,Clothing
+jeans,Clothing
+sneakers,Clothing
+boots,Clothing
+sandals,Clothing
+head,Body Parts
+arm,Body Parts
+leg,Body Parts
+hand,Body Parts
+foot,Body Parts
+ear,Body Parts
+nose,Body Parts
+eye,Body Parts
+mouth,Body Parts
+hair,Body Parts
+finger,Body Parts
+toe,Body Parts
+knee,Body Parts
+elbow,Body Parts
+shoulder,Body Parts
+back,Body Parts
+stomach,Body Parts
+chest,Body Parts
+neck,Body Parts
+waist,Body Parts
+car,Transport
+bus,Transport
+train,Transport
+bicycle,Transport
+airplane,Transport
+ship,Transport
+motorcycle,Transport
+scooter,Transport
+subway,Transport
+helicopter,Transport
+boat,Transport
+truck,Transport
+van,Transport
+taxi,Transport
+tram,Transport
+ferry,Transport
+jeep,Transport
+wagon,Transport
+canoe,Transport
+kayak,Transport
+Korea,Countries
+China,Countries
+Japan,Countries
+USA,Countries
+Canada,Countries
+Brazil,Countries
+UK,Countries
+France,Countries
+Germany,Countries
+Italy,Countries
+Russia,Countries
+India,Countries
+Australia,Countries
+Mexico,Countries
+Spain,Countries
+Egypt,Countries
+Denmark,Countries
+Argentina,Countries
+Norway,Countries
+Sweden,Countries
+soccer,Sports
+basketball,Sports
+baseball,Sports
+tennis,Sports
+golf,Sports
+volleyball,Sports
+cricket,Sports
+hockey,Sports
+swimming,Sports
+running,Sports
+cycling,Sports
+skiing,Sports
+snowboarding,Sports
+skating,Sports
+surfing,Sports
+boxing,Sports
+wrestling,Sports
+gymnastics,Sports
+taekwondo,Sports
+yoga,Sports
+bread,Food
+rice,Food
+noodles,Food
+pizza,Food
+hamburger,Food
+sandwich,Food
+salad,Food
+soup,Food
+steak,Food
+chicken,Food
+fish,Food
+egg,Food
+cheese,Food
+butter,Food
+milk,Food
+yogurt,Food
+cake,Food
+cookie,Food
+ice cream,Food
+chocolate,Food
+teacher,Jobs
+doctor,Jobs
+nurse,Jobs
+police officer,Jobs
+firefighter,Jobs
+soldier,Jobs
+pilot,Jobs
+chef,Jobs
+waiter,Jobs
+engineer,Jobs
+scientist,Jobs
+artist,Jobs
+musician,Jobs
+actor,Jobs
+writer,Jobs
+lawyer,Jobs
+judge,Jobs
+dentist,Jobs
+mechanic,Jobs
+driver,Jobs
+house,Buildings
+school,Buildings
+hospital,Buildings
+library,Buildings
+museum,Buildings
+church,Buildings
+temple,Buildings
+restaurant,Buildings
+hotel,Buildings
+office,Buildings
+store,Buildings
+mall,Buildings
+bank,Buildings
+cinema,Buildings
+theater,Buildings
+gym,Buildings
+stadium,Buildings
+zoo,Buildings
+castle,Buildings
+apartment,Buildings
+sunny,Weather
+rainy,Weather
+cloudy,Weather
+snowy,Weather
+windy,Weather
+stormy,Weather
+foggy,Weather
+humid,Weather
+dry,Weather
+hot,Weather
+cold,Weather
+warm,Weather
+cool,Weather
+breeze,Weather
+hail,Weather
+thunder,Weather
+lightning,Weather
+frost,Weather
+blizzard,Weather
+drought,Weather
+happy,Emotions
+sad,Emotions
+angry,Emotions
+scared,Emotions
+excited,Emotions
+nervous,Emotions
+surprised,Emotions
+bored,Emotions
+tired,Emotions
+confused,Emotions
+jealous,Emotions
+proud,Emotions
+embarrassed,Emotions
+ashamed,Emotions
+sleepy,Emotions
+lonely,Emotions
+grateful,Emotions
+hopeful,Emotions
+worried,Emotions
+calm,Emotions
+circle,Shapes
+square,Shapes
+triangle,Shapes
+rectangle,Shapes
+oval,Shapes
+diamond,Shapes
+star,Shapes
+heart,Shapes
+pentagon,Shapes
+hexagon,Shapes
+octagon,Shapes
+cube,Shapes
+sphere,Shapes
+cylinder,Shapes
+cone,Shapes
+pyramid,Shapes
+kitchen,Rooms
+bedroom,Rooms
+bathroom,Rooms
+living room,Rooms
+dining room,Rooms
+garage,Rooms
+basement,Rooms
+attic,Rooms
+balcony,Rooms
+hallway,Rooms
+office,Rooms
+playroom,Rooms
+laundry room,Rooms
+pantry,Rooms
+closet,Rooms
+guest room,Rooms
+storage room,Rooms
+study,Rooms
+mother,Family
+father,Family
+sister,Family
+brother,Family
+grandmother,Family
+grandfather,Family
+uncle,Family
+aunt,Family
+cousin,Family
+niece,Family
+nephew,Family
+husband,Family
+wife,Family
+son,Family
+daughter,Family
+parent,Family
+tree,Nature
+flower,Nature
+grass,Nature
+mountain,Nature
+river,Nature
+lake,Nature
+ocean,Nature
+beach,Nature
+desert,Nature
+forest,Nature
+jungle,Nature
+volcano,Nature
+island,Nature
+waterfall,Nature
+cave,Nature
+cliff,Nature
+hill,Nature
+valley,Nature
+plain,Nature
+glacier,Nature
+math,School Subject
+science,School Subject
+history,School Subject
+geography,School Subject
+art,School Subject
+music,School Subject
+physical education,School Subject
+english,School Subject
+korean,School Subject
+computer science,School Subject
+biology,School Subject
+chemistry,School Subject
+physics,School Subject
+literature,School Subject
+social studies,School Subject
+economics,School Subject
+philosophy,School Subject
+psychology,School Subject
+sociology,School Subject
+politics,School Subject
+doll,Toys
+teddy bear,Toys
+lego,Toys
+car,Toys
+train,Toys
+puzzle,Toys
+ball,Toys
+kite,Toys
+yo-yo,Toys
+marbles,Toys
+action figure,Toys
+board game,Toys
+bicycle,Toys
+scooter,Toys
+robot,Toys
+playdough,Toys
+crayons,Toys
+blocks,Toys
+trampoline,Toys
+swing,Toys
