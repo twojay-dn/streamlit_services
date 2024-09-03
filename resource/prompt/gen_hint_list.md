@@ -1,12 +1,12 @@
 generate {count} hints about {target_word} for the guessing game. You will write {count} of hints for {target_word}.
 
 ## Ordering
-- First, write the most important hint.
+- First, write the most important and clear hint.
 - Second, write the second most important hint.
 - Third, write the third most important hint.
 - And so on.
 
-Each hint should be more clear and significant than the previous one.
+Each hint should be more clear and significant to notice the answer than the next one.
 
 ## Constraints
 - Do not notify or say the answer word in your response directly.

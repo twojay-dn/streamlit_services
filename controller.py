@@ -9,8 +9,8 @@ import json
 
 client = OpenAI(api_key=st.secrets.OPENAI_API_KEY)
 
-def generate_hints(data, target_word, target_word_category, count : int = 11):
-  prompt = load_prompt("gen_hint_list")
+def generate_hints(data, target_word, target_word_category, count : int = 11) -> str:
+  prompt : str = load_prompt("gen_hint_list")
   prompt = prompt.replace("{target_word}", target_word)
   prompt = prompt.replace("{target_word_category}", target_word_category)
   prompt = prompt.replace("{count}", str(count))
@@ -28,20 +28,31 @@ def generate_hints(data, target_word, target_word_category, count : int = 11):
   print(res.choices[0].message.content)
   return res.choices[0].message.content
 
+from collections import Counter
+
+def create_calculated_hints(data, target_word, target_word_category):
+  return {
+    "target_word" : target_word,
+    "target_word_category" : target_word_category,
+    "words_count" : len(target_word),
+    "start_char" : target_word[0],
+    "end_char" : target_word[-1],
+    "char_counter" : dict(Counter(target_word.lower())),
+  }
+
 def control_impl(data):
   if data.get("custom_hint_creation_button"):
     if data.get("target_word") and data.get("target_word_category"):
-      hint_list = generate_hints(data, data.get("target_word"), data.get("target_word_category"))
-      hint_list = json.loads(hint_list)
-      data.set("hints", hint_list)
+      hint_list : str = generate_hints(data, data.get("target_word"), data.get("target_word_category"))
+      data.set("hints", json.loads(hint_list))
+      result = create_calculated_hints(data, data.get("target_word"), data.get("target_word_category"))
+      data.set("calculated_hint_dict", result)
   if data.get("random_hint_creation_button"):
     target_word, target_word_category = random.choice(st.session_state.get("wordpool"))
-    hint_list = generate_hints(data, target_word, target_word_category)
-    hint_list = json.loads(hint_list)
-    data.set("hints", hint_list)
-  if data.is_contain("hints"):
-    print(data.get("hints"))
-    data.get("generated_hint_list_display_position").write(data.get("hints"))
+    hint_list : str = generate_hints(data, target_word, target_word_category)
+    data.set("hints", json.loads(hint_list))
+    result = create_calculated_hints(data, target_word, target_word_category)
+    data.set("calculated_hint_dict", result)
   return data
 
 def default_init_instruction():
