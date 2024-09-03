@@ -1,2 +1,6 @@
+from controller import Controller
+from interface import Interface
+from refresher import Refresher
+
 if __name__ == "__main__":
-    print("Hello World")
+  Controller.run(interface=Interface, refresher=Refresher)
