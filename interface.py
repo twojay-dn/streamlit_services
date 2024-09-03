@@ -10,7 +10,7 @@ def generate_config_interface(llm_vendor: LLM_VENDOR = None):
     elif parameter == "max_tokens":
       parameter_package[parameter] = st.slider(parameter, min_value=1, max_value=4096, value=1024)
     elif parameter == "top_p":
-      parameter_package[parameter] = st.slider(parameter, min_value=0.0, max_value=1.0, value=0.5)
+      parameter_package[parameter] = st.slider(parameter, min_value=0.0, max_value=1.0, value=1.0)
     elif parameter == "frequency_penalty":
       parameter_package[parameter] = st.slider(parameter, min_value=-2.0, max_value=2.0, value=0.0)
     elif parameter == "presence_penalty":
