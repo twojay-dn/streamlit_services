@@ -34,3 +34,12 @@ class Data:
 
   def __getitem__(self, key):
     return self.data[key]
+  
+class Retrier:
+  @staticmethod
+  def retry(func, max_try = 3, *args, **kwargs):
+    for i in range(max_try):
+      try:
+        return func(*args, **kwargs)
+      except Exception as e:
+        print(f"Error: {e}")

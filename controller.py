@@ -4,10 +4,26 @@ import streamlit as st
 from utils import load_wordpool, load_prompt
 from openai import OpenAI
 import random
-from classes import Data
+from classes import Data, Retrier
 import json
 
 client = OpenAI(api_key=st.secrets.OPENAI_API_KEY)
+
+def generate_syno_anto(data, target_word):
+  prompt : str = load_prompt("gen_syno_anto")
+  prompt = prompt.replace("{target_word}", target_word)
+  res = client.chat.completions.create(
+    model=data.get("model_id"),
+    messages=[
+      {"role": "system", "content": prompt},
+    ],
+    temperature=data.get("temperature"),
+    max_tokens=1200,
+    top_p=data.get("top_p"),
+    frequency_penalty=data.get("frequency_penalty"),
+    presence_penalty=data.get("presence_penalty")
+  )
+  return res.choices[0].message.content
 
 def generate_hints(data, target_word, target_word_category, count : int = 11) -> str:
   prompt : str = load_prompt("gen_hint_list")
@@ -25,12 +41,11 @@ def generate_hints(data, target_word, target_word_category, count : int = 11) ->
     frequency_penalty=data.get("frequency_penalty"),
     presence_penalty=data.get("presence_penalty")
   )
-  print(res.choices[0].message.content)
   return res.choices[0].message.content
 
 from collections import Counter
 
-def create_calculated_hints(data, target_word, target_word_category):
+def create_calculated_hints(data, target_word, target_word_category, synonyms, antonyms):
   return {
     "target_word" : target_word,
     "target_word_category" : target_word_category,
@@ -38,32 +53,33 @@ def create_calculated_hints(data, target_word, target_word_category):
     "start_char" : target_word[0],
     "end_char" : target_word[-1],
     "char_counter" : dict(Counter(target_word.lower())),
+    "most_clear_hint" : data.get("hints").get("hints")[0],
+    "synonyms" : synonyms,
+    "antonyms" : antonyms
   }
-  
-class Retrier:
-  @staticmethod
-  def retry(func, max_try = 3, *args, **kwargs):
-    for i in range(max_try):
-      try:
-        return func(*args, **kwargs)
-      except Exception as e:
-        print(f"Error: {e}")
 
 def gen_hint_list(data, target_word, target_word_category):
     hint_list : str = generate_hints(data, target_word, target_word_category)
     data.set("hints", json.loads(hint_list))
-    
+
+def gen_syno_anto(data, target_word):
+  syno_anto : str = generate_syno_anto(data, target_word)
+  data.set("syno_anto", json.loads(syno_anto))
+
 def control_impl(data):
   if data.get("custom_hint_creation_button"):
     if data.get("target_word") and data.get("target_word_category"):
-      Retrier().retry(gen_hint_list, data=data, target_word=data.get("target_word"), target_word_category=data.get("target_word_category"))
-      result = create_calculated_hints(data, data.get("target_word"), data.get("target_word_category"))
+      Retrier.retry(gen_hint_list, data=data, target_word=data.get("target_word"), target_word_category=data.get("target_word_category"))
+      Retrier.retry(gen_syno_anto, data=data, target_word=data.get("target_word"))
+      syno_anto = data.get("syno_anto")
+      result = create_calculated_hints(data, data.get("target_word"), data.get("target_word_category"), syno_anto.get("synonyms"), syno_anto.get("antonyms"))
       data.set("calculated_hint_dict", result)
   if data.get("random_hint_creation_button"):
     target_word, target_word_category = random.choice(st.session_state.get("wordpool"))
-    Retrier().retry(gen_hint_list, data=data, target_word=target_word, target_word_category=target_word_category)
-
-    result = create_calculated_hints(data, target_word, target_word_category)
+    Retrier.retry(gen_hint_list, data=data, target_word=target_word, target_word_category=target_word_category)
+    Retrier.retry(gen_syno_anto, data=data, target_word=target_word)
+    syno_anto = data.get("syno_anto")
+    result = create_calculated_hints(data, target_word, target_word_category, syno_anto.get("synonyms"), syno_anto.get("antonyms"))
     data.set("calculated_hint_dict", result)
   return data
 
