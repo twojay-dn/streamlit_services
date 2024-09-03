@@ -10,8 +10,10 @@ class LLM_VENDOR(Enum):
       raise ValueError(f"Unsupported LLM vendor: {self}")
 
 class LLM_MODEL(Enum):
-  GPT_4O = ("GPT-4", "gpt-4o", LLM_VENDOR.OPENAI)
   GPT_3_5_TURBO = ("GPT-3.5 Turbo", "gpt-3.5-turbo", LLM_VENDOR.OPENAI)
+  GPT_4O = ("GPT-4o", "gpt-4o", LLM_VENDOR.OPENAI)
+  GPT_4O_MINI = ("GPT-4o-mini", "gpt-4o-mini", LLM_VENDOR.OPENAI)
+
 
   def __init__(self, model_name, model_id, vendor):
     self.model_name = model_name
