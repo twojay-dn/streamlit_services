@@ -21,6 +21,10 @@ class Data:
     for i in self.data:
       if isinstance(self.data[i], bool):
         self.data[i] = True
+  
+  def is_contain(self, key : str):
+    print(self.data.keys())
+    return key in self.data.keys()
 
   def __str__(self):
     return str(self.data)

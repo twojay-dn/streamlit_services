@@ -30,3 +30,10 @@ class LLM_MODEL(Enum):
       if model.model_name == model_name:
         return model.vendor
     return None
+  
+  @classmethod
+  def get_model_id(cls, model_name):
+    for model in cls:
+      if model.model_name == model_name:
+        return model.model_id
+    return None

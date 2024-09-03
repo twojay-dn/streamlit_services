@@ -20,8 +20,13 @@ def generate_config_interface(llm_vendor: LLM_VENDOR = None):
 def config_impl():
   st.write("설정")
   model_name = st.selectbox("모델 선택", [model.model_name for model in LLM_MODEL.get_model_list()])
+  model_id = LLM_MODEL.get_model_id(model_name)
   vendor_type = LLM_MODEL.get_vendor(model_name)
-  return generate_config_interface(vendor_type)
+  return {
+    **generate_config_interface(vendor_type),
+    "model_name": model_name,
+    "model_id": model_id
+  }
 
 page_height = 1200
 
@@ -79,6 +84,7 @@ def quiz_impl():
     button_container = st.container(height=int(100))
     with hint_display_container:
       st.write("힌트")
+      hint_display_position = st.empty()
     with button_container:
       subcol3, subcol4 = st.columns([0.5, 0.5])
       with subcol3:
@@ -86,12 +92,9 @@ def quiz_impl():
       with subcol4:
         reset_quiz_button = st.button("초기화")
   return {
-    "quiz": "퀴즈",
-    "chat_history_container": chat_history_container,
-    "chat_input_container": chat_input_container,
-    "submit_button": submit_button,
     "start_quiz_button": start_quiz_button,
-    "reset_quiz_button": reset_quiz_button
+    "reset_quiz_button": reset_quiz_button,
+    "hint_display_position": hint_display_position
   }
 
 def interface_impl():
@@ -106,10 +109,9 @@ def interface_impl():
     pocket = {**pocket, **quiz_impl()}
   return Data(pocket)
 
-class Interface:
-  st.set_page_config(layout="wide")
-  st.session_state.setdefault("chat_history", [])
+from utils import load_wordpool
 
+class Interface:
   @staticmethod
   def run():
     return interface_impl()
