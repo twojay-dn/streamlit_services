@@ -39,18 +39,30 @@ def create_calculated_hints(data, target_word, target_word_category):
     "end_char" : target_word[-1],
     "char_counter" : dict(Counter(target_word.lower())),
   }
+  
+class Retrier:
+  @staticmethod
+  def retry(func, max_try = 3, *args, **kwargs):
+    for i in range(max_try):
+      try:
+        return func(*args, **kwargs)
+      except Exception as e:
+        print(f"Error: {e}")
 
+def gen_hint_list(data, target_word, target_word_category):
+    hint_list : str = generate_hints(data, target_word, target_word_category)
+    data.set("hints", json.loads(hint_list))
+    
 def control_impl(data):
   if data.get("custom_hint_creation_button"):
     if data.get("target_word") and data.get("target_word_category"):
-      hint_list : str = generate_hints(data, data.get("target_word"), data.get("target_word_category"))
-      data.set("hints", json.loads(hint_list))
+      Retrier().retry(gen_hint_list, data=data, target_word=data.get("target_word"), target_word_category=data.get("target_word_category"))
       result = create_calculated_hints(data, data.get("target_word"), data.get("target_word_category"))
       data.set("calculated_hint_dict", result)
   if data.get("random_hint_creation_button"):
     target_word, target_word_category = random.choice(st.session_state.get("wordpool"))
-    hint_list : str = generate_hints(data, target_word, target_word_category)
-    data.set("hints", json.loads(hint_list))
+    Retrier().retry(gen_hint_list, data=data, target_word=target_word, target_word_category=target_word_category)
+
     result = create_calculated_hints(data, target_word, target_word_category)
     data.set("calculated_hint_dict", result)
   return data
