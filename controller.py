@@ -45,7 +45,7 @@ def generate_hints(data, target_word, target_word_category, count : int = 11) ->
 
 from collections import Counter
 
-def create_calculated_hints(data, target_word, target_word_category, syno_anto):
+def create_calculated_hints(data, target_word, target_word_category):
   return {
     "target_word" : target_word,
     "target_word_category" : target_word_category,
@@ -53,10 +53,7 @@ def create_calculated_hints(data, target_word, target_word_category, syno_anto):
     "start_char" : target_word[0],
     "end_char" : target_word[-1],
     "char_counter" : dict(Counter(target_word.lower())),
-    "most_clear_hint" : data.get("hints").get("hints")[0],
-    "is_noun" : syno_anto.get("is_noun"),
-    "synonyms" : syno_anto.get("synonyms"),
-    "antonyms" : syno_anto.get("antonyms"),
+    "most_clear_hint" : data.get("hints").get("hints")[0]
   }
 
 def gen_hint_list(data, target_word, target_word_category):
@@ -77,10 +74,15 @@ def control_impl(data):
   if data.get("random_hint_creation_button"):
     target_word, target_word_category = random.choice(st.session_state.get("wordpool"))
     Retrier.retry(gen_hint_list, data=data, target_word=target_word, target_word_category=target_word_category)
-    Retrier.retry(gen_syno_anto, data=data, target_word=target_word)
-    result = create_calculated_hints(data, target_word, target_word_category, data.get("syno_anto"))
+    result = create_calculated_hints(data, target_word, target_word_category)
     data.set("calculated_hint_dict", result)
   return data
+
+def check_submit_text_is_answer(data):
+  if data.get("submit"):
+    if data.get("target_word") and data.get("target_word_category"):
+      return True
+  return False
 
 def default_init_instruction():
   st.set_page_config(layout="wide")
