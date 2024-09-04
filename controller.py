@@ -60,10 +60,6 @@ def gen_hint_list(data, target_word, target_word_category):
     hint_list : str = generate_hints(data, target_word, target_word_category)
     data.set("hints", json.loads(hint_list))
 
-def gen_syno_anto(data, target_word):
-  syno_anto : str = generate_syno_anto(data, target_word)
-  data.set("syno_anto", json.loads(syno_anto))
-
 def check_user_input(data, input_text):
   if data.get("submit_button"):
     # TODO 정답체크 로직
@@ -72,6 +68,8 @@ def check_user_input(data, input_text):
   else:
     # 발화 처리 로직
     print(f"input_text: {input_text} | 발화처리로직")
+    st.session_state.chat_history.append({"role": "user", "content": input_text})
+    
     pass
 
 def control_impl(data):

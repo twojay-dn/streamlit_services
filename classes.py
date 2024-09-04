@@ -42,3 +42,53 @@ class Retrier:
         return func(*args, **kwargs)
       except Exception as e:
         print(f"Error: {e}")
+        
+
+from typing import List
+from openai import OpenAI
+import os
+import streamlit as st
+from utils import load_prompt
+
+
+def inference(messages : List[Dict[str, str]], model_id : str, temperature : float, max_tokens : int, top_p : float, frequency_penalty : float, presence_penalty : float):
+  client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+  res = client.chat.completions.create(
+    model=model_id,
+    messages=messages,
+    temperature=temperature,
+    max_tokens=max_tokens,
+    top_p=top_p,
+    frequency_penalty=frequency_penalty,
+    presence_penalty=presence_penalty
+  )
+  return res.choices[0].message.content
+class AI_TUTOR:
+  @staticmethod
+  def pipeline(
+    messages : List[Dict[str, str]],
+    model_id : str,
+    temperature : float,
+    max_tokens : int,
+    top_p : float,
+    frequency_penalty : float,
+    presence_penalty : float
+  ):
+    checker_prompt = load_prompt("check_answer_in_query")
+    response_prompt = load_prompt("main_instruction")
+    temp = [
+      {"role": "system", "content": checker_prompt},
+      *messages
+    ]
+    
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    res = client.chat.completions.create(
+      model=model_id,
+      messages=messages,
+      temperature=temperature,
+      max_tokens=max_tokens,
+      top_p=top_p,
+      frequency_penalty=frequency_penalty,
+      presence_penalty=presence_penalty
+    )
+    return res.choices[0].message.content
