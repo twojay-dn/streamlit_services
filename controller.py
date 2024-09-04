@@ -64,6 +64,16 @@ def gen_syno_anto(data, target_word):
   syno_anto : str = generate_syno_anto(data, target_word)
   data.set("syno_anto", json.loads(syno_anto))
 
+def check_user_input(data, input_text):
+  if data.get("submit_button"):
+    # TODO 정답체크 로직
+    print(f"input_text: {input_text} | 정답체크로직")
+    pass
+  else:
+    # 발화 처리 로직
+    print(f"input_text: {input_text} | 발화처리로직")
+    pass
+
 def control_impl(data):
   if data.get("custom_hint_creation_button"):
     if data.get("target_word") and data.get("target_word_category"):
@@ -76,19 +86,17 @@ def control_impl(data):
     Retrier.retry(gen_hint_list, data=data, target_word=target_word, target_word_category=target_word_category)
     result = create_calculated_hints(data, target_word, target_word_category)
     data.set("calculated_hint_dict", result)
+  if data.get("submit_text"):
+    check_user_input(data, data.get("submit_text"))
   return data
-
-def check_submit_text_is_answer(data):
-  if data.get("submit"):
-    if data.get("target_word") and data.get("target_word_category"):
-      return True
-  return False
 
 def default_init_instruction():
   st.set_page_config(layout="wide")
   st.session_state.setdefault("chat_history", [])
   st.session_state.setdefault("wordpool", load_wordpool())
-
+  if "submit_text" not in st.session_state:
+    st.session_state["submit_text"] = ""
+    
 class Controller:
   @classmethod
   def run(cls, interface: Interface, refresher: Refresher):

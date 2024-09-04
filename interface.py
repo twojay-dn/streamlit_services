@@ -64,7 +64,10 @@ def hint_impl():
     "generated_hint_list_display_position": generated_hint_list_display_position,
     "calculated_hint_list_display_position": calculated_hint_list_display_position
   }
-
+  
+def clear_text_value(asset):
+  asset.text_input(label="submit", key="cleared", label_visibility="collapsed")
+  
 def quiz_impl():
   col1, col2 = st.columns([0.8, 0.2])
   with col1:
@@ -76,22 +79,28 @@ def quiz_impl():
     with chat_input_container:
       subcol1, subcol2 = st.columns([0.8, 0.2])
       with subcol1:
-        chat_message = st.chat_input("user")
+        asset = st.empty()
+        submit_text = asset.text_input(label="submit", key="submit_text", label_visibility="collapsed")
+        if submit_text:
+          clear_text_value(asset)
       with subcol2:
-        submit_button = st.button("정답 제출")
+        empty_container = st.container(height=8,border=False)
+        submit_button = st.button("정답 제출", key="submit_button")
   with col2:
     hint_display_container = st.container(height=int(page_height * 0.8))
     button_container = st.container(height=int(100))
     with hint_display_container:
       st.write("힌트")
       hint_display_position = st.empty()
-    with button_container:
+    with button_container:  
       subcol3, subcol4 = st.columns([0.5, 0.5])
       with subcol3:
         start_quiz_button = st.button("퀴즈 시작")
       with subcol4:
         reset_quiz_button = st.button("초기화")
   return {
+    "submit_text": submit_text,
+    "submit_button": submit_button,
     "start_quiz_button": start_quiz_button,
     "reset_quiz_button": reset_quiz_button,
     "hint_display_position": hint_display_position
@@ -108,8 +117,6 @@ def interface_impl():
   with tab3:
     pocket = {**pocket, **quiz_impl()}
   return Data(pocket)
-
-from utils import load_wordpool
 
 class Interface:
   @staticmethod
