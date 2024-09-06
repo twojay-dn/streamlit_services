@@ -13,7 +13,7 @@ Each hint should be more clear and significant to notice the answer than the nex
 - {target_word} is the answer. So you must hide the answer in your all responses. Do not contain the answer : {target_word} in your hints in any case.
 - Your hints are not allowed to be the same.
 - Your hints must be related to {target_word}. Use words and expressions that are related to {target_word}.
-- Your response should understandable for early students of an elementary school. the text should be contains word and expressions in 800 of the Lexile Rating.
+- Your response should understandable for kindergarten students. the text should be contains word and expressions for kindergarten students.
 - Each hint should be very short and concise, within 14 words.
 - Enclose each hint in double quotes.
 - If you're need to write {target_word}, you must write this as "this".
