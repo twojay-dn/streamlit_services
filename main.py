@@ -75,18 +75,19 @@ def serialize_chat_history(chat_history : List[Dict[str, Any]]) -> str:
     result += f"assistant : {chat['content']}\n"
   return result
 
-def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str) -> str:
+def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str, hint : str) -> str:
   prompt = read_file(f"{os.getcwd()}/resource/prompt/main_instruction.md")
   prompt = prompt.replace("{target_word}", target_word)
   prompt = prompt.replace("{target_category}", target_category)
   chat_history_str = serialize_chat_history(chat_history)
   prompt = prompt.replace("{chat_history}", chat_history_str)
+  prompt = prompt.replace("{hint}", hint)
   response = client.chat.completions.create(
     model = "gpt-3.5-turbo",
     messages = [
       {"role": "system", "content": prompt}
     ],
-    temperature = 0.7,
+    temperature = 0.6,
     max_tokens = 1500,
     top_p = 0.95
   )
@@ -205,11 +206,10 @@ def main():
           if answer_check["result"]:
             add_message_to_chat_history("assistant", random.choice(correct_answer_messages) + "\n" + "Let's submit the answer in the input box.")
           else:
-            response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.word, st.session_state.category)
-            response = retrier(response_callable)
-            print(response)
             picked_hint = st.session_state.generated_hint.pop(len(st.session_state.generated_hint) - 1)
-            message = response["response"] + "\n" + f"the hint is ... {picked_hint}"
+            response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.word, st.session_state.category, picked_hint)
+            response = retrier(response_callable)
+            message = response["response"]
             add_message_to_chat_history("assistant", message)
           st.rerun()
 
