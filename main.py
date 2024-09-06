@@ -10,6 +10,8 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 def init():
   st.session_state.setdefault("word", "")
   st.session_state.setdefault("category", "")
+  st.session_state.setdefault("target_word", "")
+  st.session_state.setdefault("target_category", "")
   st.session_state.setdefault("chat_history", [])
   st.session_state.setdefault("generated_hint", [])
   st.session_state.setdefault("generated_code_level_hint", {})
@@ -141,10 +143,12 @@ def main():
       customgen_button = st.button("커스텀 생성", key = "customgen_button")
       if randomgen_button:
         picked = random.choice(st.session_state.words)
-        st.session_state.update({"word": picked["word"]})
-        st.session_state.update({"category": picked["category"]})
-        generated_hint_callable = lambda : generate_hint(picked["word"], picked["category"])
-        generated_code_level_hint_callable = lambda : generate_code_level_hint(picked["word"], picked["category"])
+        picked_word = picked["word"]
+        picked_category = picked["category"]
+        st.session_state.update({"target_word": picked_word})
+        st.session_state.update({"target_category": picked_category})
+        generated_hint_callable = lambda : generate_hint(picked_word, picked_category)
+        generated_code_level_hint_callable = lambda : generate_code_level_hint(picked_word, picked_category)
         generated_hint = retrier(generated_hint_callable)
         generated_code_level_hint = retrier(generated_code_level_hint_callable)
         st.session_state.update({"generated_hint": generated_hint})
@@ -154,6 +158,8 @@ def main():
         generated_code_level_hint_callable = lambda : generate_code_level_hint(st.session_state.word, st.session_state.category)
         generated_hint = retrier(generated_hint_callable)
         generated_code_level_hint = retrier(generated_code_level_hint_callable)
+        st.session_state.update({"target_word": st.session_state.word})
+        st.session_state.update({"target_category": st.session_state.category})
         st.session_state.update({"generated_hint": generated_hint})
         st.session_state.update({"generated_code_level_hint": generated_code_level_hint})
     with col3:
@@ -241,8 +247,8 @@ def main():
     hint_container = st.container(height = 930)
     with hint_container:
       st.write("힌트 표시창")
-      st.write(f"정답 : {st.session_state.word}")
-      st.write(f"카테고리 : {st.session_state.category}")
+      st.write(f"정답 : {st.session_state.target_word}")
+      st.write(f"카테고리 : {st.session_state.target_category}")
       st.write(st.session_state.generated_hint)
       st.write(st.session_state.generated_code_level_hint)
       
