@@ -141,6 +141,8 @@ def main():
       customgen_button = st.button("커스텀 생성", key = "customgen_button")
       if randomgen_button:
         picked = random.choice(st.session_state.words)
+        st.session_state.update({"word": picked["word"]})
+        st.session_state.update({"category": picked["category"]})
         generated_hint_callable = lambda : generate_hint(picked["word"], picked["category"])
         generated_code_level_hint_callable = lambda : generate_code_level_hint(picked["word"], picked["category"])
         generated_hint = retrier(generated_hint_callable)
