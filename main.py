@@ -77,23 +77,27 @@ def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : st
       *chat_history
     ],
     temperature = 0.7,
-    max_tokens = 300,
+    max_tokens = 1500,
     top_p = 0.95
   )
   formed = json.loads(response.choices[0].message.content)
   return formed
 
-def generate_answer_check(target_word : str, user_input : str) -> bool:
+def generate_answer_check(user_input : str, target_word : str) -> bool:
   prompt = read_file(f"{os.getcwd()}/resource/prompt/check_answer_in_query.md")
-  prompt = prompt.replace("{target_word}", target_word)
-  prompt = prompt.replace("{user_input}", user_input)
+  temp_input_dict = {
+    "role" : "user",
+    "content" : f"<answer_word>{target_word}</answer_word>\n<user_input>{user_input}</user_input>"
+  }
+  
   response = client.chat.completions.create(
     model = "gpt-3.5-turbo",
     messages = [ 
-      {"role": "system", "content": prompt}
+      {"role": "system", "content": prompt},
+      temp_input_dict
     ],
     temperature = 0.3,
-    max_tokens = 300,
+    max_tokens = 1000,
     top_p = 0.95
   )
   formed = json.loads(response.choices[0].message.content)
@@ -107,7 +111,7 @@ def validate_answer(answer : str, submitted : str) -> bool:
 
 from typing import Callable
 
-def retrier(func : Callable, condition_callable : Callable = None, required_args : List[str] = [], max_retry : int = 3, *args, **kwargs):
+def retrier(func : Callable, condition_callable : Callable = None, required_args : List[str] = [], max_retry : int = 5, *args, **kwargs):
   if condition_callable is None:
     condition_callable = lambda res : True
   while True:
@@ -177,12 +181,18 @@ def main():
         chat_input = st.chat_input("채팅 입력")
         if chat_input:  
           add_message_to_chat_history("user", chat_input)
-          response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.word, st.session_state.category)
-          response = retrier(response_callable)
-          print(response)
-          picked_hint = st.session_state.generated_hint.pop(len(st.session_state.generated_hint) - 1)
-          message = response["response"] + "\n" + f"the hint is ... {picked_hint}"
-          add_message_to_chat_history("assistant", message)
+          answer_check_callable = lambda : generate_answer_check(st.session_state.word, chat_input)
+          answer_check = retrier(answer_check_callable)
+          print(answer_check)
+          if answer_check["result"]:
+            add_message_to_chat_history("assistant", random.choice(correct_answer_messages) + "\n" + "Let's submit the answer in the input box.")
+          else:
+            response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.word, st.session_state.category)
+            response = retrier(response_callable)
+            print(response)
+            picked_hint = st.session_state.generated_hint.pop(len(st.session_state.generated_hint) - 1)
+            message = response["response"] + "\n" + f"the hint is ... {picked_hint}"
+            add_message_to_chat_history("assistant", message)
           st.rerun()
 
         col_answer_input, col_submit_button, col_turn = st.columns([0.82, 0.1, 0.08])
