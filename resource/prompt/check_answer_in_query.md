@@ -4,6 +4,8 @@ Judge user's answer is right or wrong. this instruction has three conditions to 
 2. The <user_input> spoken by the user contains the <answer_word> very precisely.
 3. The user is clearly confident in the correct answer and submitting it.
 
+- If the user is asking a general question about an object that could be related to the answer word, but is not specifically about the answer word, the result should be 0.
+
 ### input data
 
 a user message would contain <answer_word> and <user_input> tags. check both of them and judge whether the user's answer is right or wrong.

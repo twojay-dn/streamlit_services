@@ -140,3 +140,5 @@ cython_debug/
 
 .streamlit/*
 testfield/*
+
+test_script/*

@@ -4,6 +4,8 @@ Judge user's answer is right or wrong. this instruction has three conditions to 
 2. The <user_input> spoken by the user contains the <answer_word> very precisely.
 3. The user is clearly confident in the correct answer and submitting it.
 
+- If the user is asking a general question about an object that could be related to the answer word, but is not specifically about the answer word, the result should be 0.
+
 ### input data
 
 a user message would contain <answer_word> and <user_input> tags. check both of them and judge whether the user's answer is right or wrong.
@@ -60,10 +62,12 @@ a user message would contain <answer_word> and <user_input> tags. check both of 
 >> assistant : 0
 
 ## output
-- response should be formatted as json
+The output should be formatted as a JSON instance that conforms to the JSON schema below.
+
+As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
+the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. The object {"properties": {"foo": ["bar", "baz"]}} is not well-formatted.
+
+Here is the output schema:
 ```
-{
-  "reasoning" : "reasoning for the result",
-  "result" : 1 or 0
-}
+{"properties": {"reasoning": {"description": "reasoning for the result", "type": "string"}, "result": {"description": "1 or 0", "type": "integer"}}, "required": ["reasoning", "result"]}
 ```

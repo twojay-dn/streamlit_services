@@ -10,7 +10,7 @@ Each hint should be more clear and significant to notice the answer than the nex
 
 ## Constraints
 - Do not notify or say the answer word in your response directly.
-- {target_word} is the answer. So you must hide the answer in your all responses.
+- {target_word} is the answer. So you must hide the answer in your all responses. Do not contain the answer : {target_word} in your hints in any case.
 - Your hints are not allowed to be the same.
 - Your hints must be related to {target_word}. Use words and expressions that are related to {target_word}.
 - Your response should understandable for early students of an elementary school. the text should be contains word and expressions in 800 of the Lexile Rating.
