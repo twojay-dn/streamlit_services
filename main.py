@@ -179,7 +179,7 @@ def main():
     with chat_container:
       if user_turn_count < turn_limit:
         chat_input = st.chat_input("채팅 입력")
-        if chat_input:  
+        if chat_input:
           add_message_to_chat_history("user", chat_input)
           answer_check_callable = lambda : generate_answer_check(st.session_state.word, chat_input)
           answer_check = retrier(answer_check_callable)
@@ -239,6 +239,8 @@ def main():
     hint_container = st.container(height = 930)
     with hint_container:
       st.write("힌트 표시창")
+      st.write(f"정답 : {st.session_state.word}")
+      st.write(f"카테고리 : {st.session_state.category}")
       st.write(st.session_state.generated_hint)
       st.write(st.session_state.generated_code_level_hint)
       
