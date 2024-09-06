@@ -12,12 +12,12 @@ def init():
   st.session_state.setdefault("category", "")
   st.session_state.setdefault("target_word", "")
   st.session_state.setdefault("target_category", "")
+  st.session_state.setdefault("answer_input", "")
   st.session_state.setdefault("chat_history", [])
   st.session_state.setdefault("generated_hint", [])
   st.session_state.setdefault("generated_code_level_hint", {})
   st.session_state.setdefault("words", read_csv(f"{os.getcwd()}/resource/words.csv"))
   st.session_state.setdefault("ai_hint_dict", {})
-  st.session_state.setdefault("answer_input", "")
 
   
 def read_file(file_path : str) -> str:
@@ -220,7 +220,7 @@ def main():
           submit_button = st.button("제출", key = "submit_button")
           if text_input and submit_button:
             add_message_to_chat_history("user", text_input)
-            result_validation_answer = validate_answer(text_input, st.session_state.word)
+            result_validation_answer = validate_answer(text_input, st.session_state.target_word)
             if result_validation_answer:
               add_message_to_chat_history("assistant", random.choice(correct_answer_messages))
             else:
