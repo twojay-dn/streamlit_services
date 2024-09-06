@@ -68,20 +68,29 @@ def generate_code_level_hint(target_word : str, target_category : str) -> Dict[s
   }
   return result
 
+def serialize_chat_history(chat_history : List[Dict[str, Any]]) -> str:
+  result = ""
+  for chat in chat_history:
+    result += f"user : {chat['content']}\n"
+    result += f"assistant : {chat['content']}\n"
+  return result
+
 def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str) -> str:
   prompt = read_file(f"{os.getcwd()}/resource/prompt/main_instruction.md")
   prompt = prompt.replace("{target_word}", target_word)
   prompt = prompt.replace("{target_category}", target_category)
+  chat_history_str = serialize_chat_history(chat_history)
+  prompt = prompt.replace("{chat_history}", chat_history_str)
   response = client.chat.completions.create(
     model = "gpt-3.5-turbo",
     messages = [
-      {"role": "system", "content": prompt},
-      *chat_history
+      {"role": "system", "content": prompt}
     ],
     temperature = 0.7,
     max_tokens = 1500,
     top_p = 0.95
   )
+  print(f"chat_response_draft : {response.choices[0].message.content}")
   formed = json.loads(response.choices[0].message.content)
   return formed
 
@@ -175,7 +184,8 @@ def main():
   user_turn_count = sum(1 for chat in st.session_state.chat_history if chat['role'] == 'user')
   turn_limit = 10
   if (randomgen_button or customgen_button) and len(st.session_state.chat_history) == 0:
-    add_message_to_chat_history("assistant", random.choice(start_messages))
+    picked_hint = st.session_state.generated_hint.pop(len(st.session_state.generated_hint) - 1)
+    add_message_to_chat_history("assistant", random.choice(start_messages) + "\n" + f"the hint is ... {picked_hint}")
   with col_chat:
     chat_history_container = st.container(height = 500)
     chat_container = st.container(height = 130)
