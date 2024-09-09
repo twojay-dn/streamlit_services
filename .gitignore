@@ -140,5 +140,5 @@ cython_debug/
 
 .streamlit/*
 testfield/*
-
 test_script/*
+hint_gen_test/*
