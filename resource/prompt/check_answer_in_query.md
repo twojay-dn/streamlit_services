@@ -3,9 +3,11 @@ Judge user's answer is right or wrong. this instruction has three conditions to 
 1. The user is clearly and unambiguously referring to <answer_word>.
 2. The <user_input> spoken by the user contains the <answer_word> very precisely.
 3. The user is clearly confident in the correct answer and submitting it.
-4. or, the user can present the answer word as like this form : "Is it a <answer_word>?" or "Is that a <answer_word>?" or "<answer_word>?"
+4. or, the user can present the answer word as like this form : "Is it a <answer_word>?" or "Is that a <answer_word>?" or "<answer_word>?". If so, the result should be 1.
 
 - If the user is asking a general question about an object that could be related to the answer word, but is not specifically about the answer word, the result should be 0.
+- You should write in reasoning about why you choose 1 or 0.
+
 
 ### input data
 
@@ -75,7 +77,7 @@ the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. T
 Do not expose the schema directly.
 You must generate the hints in the json format with the schema below :
 ```
-{"properties": {"reasoning": {"description": "reasoning for the result", "type": "integer"}, "result": {"description": "1 or 0", "type": "integer"}}, "required": ["reasoning", "result"]}
+{"properties": {"reasoning": {"description": "reasoning for the result", "type": "string"}, "result": {"description": "1 or 0", "type": "integer"}}, "required": ["reasoning", "result"]}
 ```
 Do not contain the scheme above in your response, Just only generate 
 

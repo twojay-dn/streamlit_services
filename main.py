@@ -90,7 +90,7 @@ def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : st
     messages = [
       {"role": "system", "content": prompt}
     ],
-    temperature = 0.6,
+    temperature = 0.45,
     max_tokens = 1500,
     top_p = 0.95
   )
@@ -111,7 +111,7 @@ def generate_answer_check(user_input : str, target_word : str) -> bool:
       {"role": "system", "content": prompt},
       temp_input_dict
     ],
-    temperature = 0.2,
+    temperature = 0.05,
     max_tokens = 1000,
   )
   content = response.choices[0].message.content
