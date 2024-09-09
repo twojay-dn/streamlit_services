@@ -1,0 +1,253 @@
+word,category
+cat,Animals
+dog,Animals
+lion,Animals
+tiger,Animals
+elephant,Animals
+giraffe,Animals
+zebra,Animals
+bear,Animals
+fox,Animals
+wolf,Animals
+rabbit,Animals
+mouse,Animals
+cow,Animals
+horse,Animals
+sheep,Animals
+goat,Animals
+chicken,Animals
+duck,Animals
+pig,Animals
+frog,Animals
+apple,Fruits
+banana,Fruits
+orange,Fruits
+grape,Fruits
+strawberry,Fruits
+pineapple,Fruits
+mango,Fruits
+peach,Fruits
+lemon,Fruits
+watermelon,Fruits
+cherry,Fruits
+pear,Fruits
+plum,Fruits
+kiwi,Fruits
+blueberry,Fruits
+coconut,Fruits
+durian,Fruits
+cacao,Fruits
+car,Transport
+bus,Transport
+train,Transport
+bicycle,Transport
+airplane,Transport
+ship,Transport
+motorcycle,Transport
+scooter,Transport
+subway,Transport
+helicopter,Transport
+boat,Transport
+truck,Transport
+van,Transport
+taxi,Transport
+ferry,Transport
+jeep,Transport
+wagon,Transport
+canoe,Transport
+drone,Transport
+Korea,Countries
+China,Countries
+Japan,Countries
+USA,Countries
+Canada,Countries
+Brazil,Countries
+UK,Countries
+France,Countries
+Germany,Countries
+Italy,Countries
+Russia,Countries
+India,Countries
+Australia,Countries
+Mexico,Countries
+Spain,Countries
+Egypt,Countries
+Denmark,Countries
+Argentina,Countries
+Norway,Countries
+Sweden,Countries
+soccer,Sports
+basketball,Sports
+baseball,Sports
+tennis,Sports
+golf,Sports
+volleyball,Sports
+hockey,Sports
+swimming,Sports
+running,Sports
+cycling,Sports
+skiing,Sports
+snowboarding,Sports
+skating,Sports
+surfing,Sports
+boxing,Sports
+wrestling,Sports
+taekwondo,Sports
+yoga,Sports
+fencing,Sports
+bread,Food
+rice,Food
+noodles,Food
+pizza,Food
+hamburger,Food
+sandwich,Food
+salad,Food
+soup,Food
+steak,Food
+chicken,Food
+fish,Food
+egg,Food
+cheese,Food
+butter,Food
+milk,Food
+yogurt,Food
+cake,Food
+cookie,Food
+ice cream,Food
+chocolate,Food
+blackboard,Classroom items
+chalk,Classroom items
+desk,Classroom items
+chair,Classroom items
+notebook,Classroom items
+pencil,Classroom items
+eraser,Classroom items
+ruler,Classroom items
+glue,Classroom items
+scissors,Classroom items
+marker,Classroom items
+stapler,Classroom items
+paper,Classroom items
+crayons,Classroom items
+whiteboard,Classroom items
+textbook,Classroom items
+pen,Classroom items
+calculator,Classroom items
+folder,Classroom items
+spoon,Household items
+fork,Household items
+knife,Household items
+plate,Household items
+cup,Household items
+chair,Household items
+table,Household items
+sofa,Household items
+bed,Household items
+tv,Household items
+refrigerator,Household items
+oven,Household items
+microwave,Household items
+washing machine,Household items
+pillow,Household items
+blanket,Household items
+vacuum cleaner,Household items
+wardrobe,Household items
+computer,Household items
+telephone,Household items
+New York,Cities
+Los Angeles(LA),Cities
+Toronto,Cities
+London,Cities
+Paris,Cities
+Berlin,Cities
+Seoul,Cities
+Bangkok,Cities
+Tokyo,Cities
+Beijing,Cities
+Rome,Cities
+Madrid,Cities
+Dubai,Cities
+Cairo,Cities
+Jakarta,Cities
+New Delhi,Cities
+Hanoi,Cities
+Vienna,Cities
+Moscow,Cities
+rain,Nature
+snow,Nature
+sun,Nature
+river,Nature
+mountain,Nature
+ocean,Nature
+forest,Nature
+moon,Nature
+star,Nature
+planet,Nature
+tree,Nature
+flower,Nature
+grass,Nature
+desert,Nature
+wind,Nature
+storm,Nature
+rainbow,Nature
+beach,Nature
+happy,Adjectives
+sad,Adjectives
+big,Adjectives
+small,Adjectives
+fast,Adjectives
+slow,Adjectives
+hot,Adjectives
+cold,Adjectives
+soft,Adjectives
+hard,Adjectives
+bright,Adjectives
+dark,Adjectives
+young,Adjectives
+old,Adjectives
+easy,Adjectives
+difficult,Adjectives
+strong,Adjectives
+clean,Adjectives
+tall,Adjectives
+short,Adjectives
+run,Action Verbs
+jump,Action Verbs
+eat,Action Verbs
+sleep,Action Verbs
+wash,Action Verbs
+write,Action Verbs
+read,Action Verbs
+sing,Action Verbs
+dance,Action Verbs
+walk,Action Verbs
+cook,Action Verbs
+drive,Action Verbs
+fly,Action Verbs
+swim,Action Verbs
+play,Action Verbs
+study,Action Verbs
+call,Action Verbs
+laugh,Action Verbs
+cry,Action Verbs
+wait,Action Verbs
+cat,Short Vowel 'a'
+hat,Short Vowel 'a'
+bag,Short Vowel 'a'
+bat,Short Vowel 'a'
+map,Short Vowel 'a'
+lap,Short Vowel 'a'
+fan,Short Vowel 'a'
+pan,Short Vowel 'a'
+man,Short Vowel 'a'
+jam,Short Vowel 'a'
+cap,Short Vowel 'a'
+rat,Short Vowel 'a'
+dad,Short Vowel 'a'
+van,Short Vowel 'a'
+mat,Short Vowel 'a'
+tap,Short Vowel 'a'
+can,Short Vowel 'a'
+gas,Short Vowel 'a'
+nap,Short Vowel 'a'
+sad,Short Vowel 'a'
