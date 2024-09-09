@@ -46,7 +46,10 @@ def generate_hint(target_word : str, target_category : str, count : int = 11) ->
     max_tokens = 1200,
     top_p = 0.95
   )
-  result_list = json.loads(response.choices[0].message.content)["hints"]
+  content = response.choices[0].message.content
+  if "```" in content:
+    content = content.replace("```json","").replace("```","")
+  result_list = json.loads(content)["hints"]
   return result_list
 
 character_frequency_hint_format = "{key}가 {value}개 있어."
@@ -108,9 +111,8 @@ def generate_answer_check(user_input : str, target_word : str) -> bool:
       {"role": "system", "content": prompt},
       temp_input_dict
     ],
-    temperature = 0.3,
+    temperature = 0.2,
     max_tokens = 1000,
-    top_p = 0.95
   )
   formed = json.loads(response.choices[0].message.content)
   return formed

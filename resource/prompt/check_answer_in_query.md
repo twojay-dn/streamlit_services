@@ -23,6 +23,10 @@ a user message would contain <answer_word> and <user_input> tags. check both of 
 <user_input>egg</user_input>
 >> assistant : 1
 
+<answer_word>bag</answer_word>
+<user_input>bag?</user_input>
+>> assistant : 1
+
 <answer_word>fruit</answer_word>
 <user_input>is that fruit?</user_input>
 >> assistant : 1
