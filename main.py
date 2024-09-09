@@ -114,7 +114,11 @@ def generate_answer_check(user_input : str, target_word : str) -> bool:
     temperature = 0.2,
     max_tokens = 1000,
   )
-  formed = json.loads(response.choices[0].message.content)
+  content = response.choices[0].message.content
+  if "```" in content:
+    content = content.replace("```json","").replace("```","")
+  formed = json.loads(content)
+  print(f"formed : {formed}")
   return formed
 
 def add_message_to_chat_history(role : str, content : str):
@@ -202,9 +206,10 @@ def main():
         chat_input = st.chat_input("채팅 입력")
         if chat_input:
           add_message_to_chat_history("user", chat_input)
+          condition = lambda res : "result" in res
           answer_check_callable = lambda : generate_answer_check(st.session_state.word, chat_input)
-          answer_check = retrier(answer_check_callable)
-          print(answer_check)
+          print(chat_input)
+          answer_check = retrier(answer_check_callable, condition_callable=condition)
           if answer_check["result"]:
             add_message_to_chat_history("assistant", random.choice(correct_answer_messages) + "\n" + "Let's submit the answer in the input box.")
           else:

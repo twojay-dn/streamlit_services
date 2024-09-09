@@ -3,6 +3,7 @@ Judge user's answer is right or wrong. this instruction has three conditions to 
 1. The user is clearly and unambiguously referring to <answer_word>.
 2. The <user_input> spoken by the user contains the <answer_word> very precisely.
 3. The user is clearly confident in the correct answer and submitting it.
+4. or, the user can present the answer word as like this form : "Is it a <answer_word>?" or "Is that a <answer_word>?" or "<answer_word>?"
 
 - If the user is asking a general question about an object that could be related to the answer word, but is not specifically about the answer word, the result should be 0.
 
@@ -68,10 +69,14 @@ a user message would contain <answer_word> and <user_input> tags. check both of 
 ## output
 The output should be formatted as a JSON instance that conforms to the JSON schema below.
 
-As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
+As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of  strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
 the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. The object {"properties": {"foo": ["bar", "baz"]}} is not well-formatted.
 
-Here is the output schema:
+Do not expose the schema directly.
+You must generate the hints in the json format with the schema below :
 ```
-{"properties": {"reasoning": {"description": "reasoning for the result", "type": "string"}, "result": {"description": "1 or 0", "type": "integer"}}, "required": ["reasoning", "result"]}
+{"properties": {"reasoning": {"description": "reasoning for the result", "type": "integer"}, "result": {"description": "1 or 0", "type": "integer"}}, "required": ["reasoning", "result"]}
 ```
+Do not contain the scheme above in your response, Just only generate 
+
+When you generate json format, enclose the entire json format with ```json at the beginning and ``` at the end.
