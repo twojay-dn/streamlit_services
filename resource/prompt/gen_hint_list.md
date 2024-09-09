@@ -14,16 +14,16 @@ Each hint should be more clear and significant to notice the answer than the nex
 - Your hints are not allowed to be the same.
 - Your hints must be related to {target_word}. Use words and expressions that are related to {target_word}.
 - Your response should understandable for kindergarten students. the text should be contains word and expressions for kindergarten students.
-- Each hint should be very short and concise, within 14 words.
-- Enclose each hint in double quotes.
-- If you're need to write {target_word}, you must write this as "this".
+- Each hint should be very short and concise. write each hint in 10 words or less.
+- Enclose each hint in double quotes write each hint in a sentence format of python.
+- If you're need to write {target_word}, you must write this as "this" or "it" or other pronoun.
 - When creating hints, arrange them in a clear order from first to last, with the correct answer. The clearer the answer, the later it should be.
-- Just write each hint in a sentence.
+
 
 ## Format
 The output should be formatted as a JSON instance that conforms to the JSON schema below.
 
-As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
+As an example, for the schema {"properties": {"foo": {"title": "Foo", "description": "a list of  strings", "type": "array", "items": {"type": "string"}}}, "required": ["foo"]}
 the object {"foo": ["bar", "baz"]} is a well-formatted instance of the schema. The object {"properties": {"foo": ["bar", "baz"]}} is not well-formatted.
 
 Here is the output schema:
