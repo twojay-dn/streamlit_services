@@ -78,9 +78,11 @@ Do not expose the schema directly.
 You must generate the hints in the json format with the schema below :
 ```
 {"properties": {
-  "reasoning": {"description": "reasoning for comparing user's input text and answer word, and judge whether the user's answer is right or wrong", "type": "string"},
+  "user_input": {"description": "user's input text inside <user_input> tags", "type": "string"},
+  "answer_word": {"description": "answer word inside <answer_word> tags", "type": "string"},
+  "reasoning": {"description": "reasoning for the result", "type": "string"},
   "result": {"description": "1 or 0", "type": "integer"}
-}, "required": ["reasoning", "result"]}
+}, "required": ["user_input", "answer_word", "reasoning", "result"]}
 ```
 Do not contain the scheme above in your response, Just only generate 
 
