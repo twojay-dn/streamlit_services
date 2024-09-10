@@ -17,7 +17,12 @@ The content and information found in the hints generated later should not be rep
 - Each hint should be very short and concise. write each hint in 8 words or less.
 - If you're need to write {target_word}, you must write this as "this" or "it" or other pronoun.
 - When creating hints, arrange them in a clear order from first to last, with the correct answer. The clearer the answer, the later it should be.
-
+- Do not generate hints with harmful words or context, or sensitive topics, such as :
+  - LGBT, transgender, homosexual, etc.
+  - Racism
+  - Violence
+  - Discrimination
+  - Any illegal context
 
 ## Format
 The output should be formatted as a JSON instance that conforms to the JSON schema below.
@@ -35,3 +40,5 @@ Do not contain the scheme above in your response, Just only generate
 When you generate json format, enclose the entire json format with ```json at the beginning and ``` at the end.
 
 Enclose each hint in double quotes. Do not use '"\"' in your hints. just one double quote mark for each hint.
+
+
