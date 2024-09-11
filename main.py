@@ -71,32 +71,9 @@ def generate_code_level_hint(target_word : str, target_category : str) -> Dict[s
   }
   return result
 
-def serialize_chat_history(chat_history : List[Dict[str, Any]]) -> str:
-  result = ""
-  for chat in chat_history:
-    result += f"user : {chat['content']}\n"
-    result += f"assistant : {chat['content']}\n"
-  return result
-
-def generate_gkp_target_word(target_word : str, target_category : str) -> str:
-  prompt = read_file(f"{os.getcwd()}/resource/prompt/gkp_target_word.md")
-  prompt = prompt.replace("{target_word}", target_word)
-  prompt = prompt.replace("{target_category}", target_category)
-  response = client.chat.completions.create(
-    model = "gpt-3.5-turbo",
-    messages = [
-      {"role": "system", "content": prompt}
-    ],
-  )
-  return response.choices[0].message.content
-
 def make_chat_systemp_prompt(target_word : str, target_category : str, hint : str) -> str:
   prompt = read_file(f"{os.getcwd()}/resource/prompt/main_instruction.md")
-  prompt = prompt.replace("{target_word}", target_word)
-  prompt = prompt.replace("{target_category}", target_category)
-  knowledge = generate_gkp_target_word(target_word, target_category)
-  prompt = prompt.replace("{knowledge}", knowledge)
-  prompt = prompt.replace("{hint}", hint)
+  prompt = prompt.replace("{content}", target_word)
   return prompt
 
 def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str, hint : str) -> str:
@@ -112,12 +89,12 @@ def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : st
     max_tokens = 1500,
     top_p = 0.95
   )
-  print(f"chat_response_draft : {response.choices[0].message.content}")
-  formed = json.loads(response.choices[0].message.content)
-  return formed
+  result = response.choices[0].message.content
+  print(f"chat_response_draft : {result}")
+  return result
 
 def generate_answer_check(user_input : str, target_word : str) -> bool:
-  prompt = read_file(f"{os.getcwd()}/resource/prompt/check_answer_in_query.md")
+  prompt = read_file(f"{os.getcwd()}/resource/prompt/check_answer_prompt.md")
   temp_input_dict = {
     "role" : "user",
     "content" : f"<answer_word>{target_word}</answer_word>\n<user_input>{user_input}</user_input>"
@@ -235,8 +212,8 @@ def main():
             picked_hint = st.session_state.generated_hint.pop(len(st.session_state.generated_hint) - 1)
             response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.word, st.session_state.category, picked_hint)
             response = retrier(response_callable)
-            message = response["response"]
-            add_message_to_chat_history("assistant", message)
+            response = f"{response}. {picked_hint}"
+            add_message_to_chat_history("assistant", response)
           st.rerun()
 
         col_answer_input, col_submit_button, col_turn = st.columns([0.82, 0.1, 0.08])

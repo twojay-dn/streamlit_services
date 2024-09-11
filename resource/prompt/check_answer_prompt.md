@@ -84,4 +84,4 @@ You must generate the hints in the json format with the schema below :
 ```
 Do not contain the scheme above in your response, Just only generate 
 
-When you generate json format, enclose the entire json format with ```json at the beginning and ``` at the end.
+When you generate json format, enclose the entire json format with ```json at the beginning and ``` at the
