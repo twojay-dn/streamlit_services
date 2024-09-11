@@ -78,18 +78,36 @@ def serialize_chat_history(chat_history : List[Dict[str, Any]]) -> str:
     result += f"assistant : {chat['content']}\n"
   return result
 
-def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str, hint : str) -> str:
-  prompt = read_file(f"{os.getcwd()}/resource/prompt/main_instruction.md")
+def generate_gkp_target_word(target_word : str, target_category : str) -> str:
+  prompt = read_file(f"{os.getcwd()}/resource/prompt/gkp_target_word.md")
   prompt = prompt.replace("{target_word}", target_word)
   prompt = prompt.replace("{target_category}", target_category)
-  chat_history_str = serialize_chat_history(chat_history)
-  prompt = prompt.replace("{chat_history}", chat_history_str)
-  prompt = prompt.replace("{hint}", hint)
   response = client.chat.completions.create(
     model = "gpt-3.5-turbo",
     messages = [
       {"role": "system", "content": prompt}
     ],
+  )
+  return response.choices[0].message.content
+
+def make_chat_systemp_prompt(target_word : str, target_category : str, hint : str) -> str:
+  prompt = read_file(f"{os.getcwd()}/resource/prompt/main_instruction.md")
+  prompt = prompt.replace("{target_word}", target_word)
+  prompt = prompt.replace("{target_category}", target_category)
+  knowledge = generate_gkp_target_word(target_word, target_category)
+  prompt = prompt.replace("{knowledge}", knowledge)
+  prompt = prompt.replace("{hint}", hint)
+  return prompt
+
+def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str, hint : str) -> str:
+  if "prompt" not in st.session_state:
+    prompt = make_chat_systemp_prompt(target_word, target_category, hint)
+    st.session_state.update({"prompt": prompt})
+  messages = [{"role": "system", "content": st.session_state.prompt}]
+  messages.extend(chat_history)
+  response = client.chat.completions.create(
+    model = "gpt-3.5-turbo",
+    messages = messages,
     temperature = 0.45,
     max_tokens = 1500,
     top_p = 0.95
@@ -185,6 +203,7 @@ def main():
         st.session_state.update({"generated_hint": []})
         st.session_state.update({"generated_code_level_hint": {}})
         st.session_state.update({"ai_hint_dict": {}})
+        st.session_state.update({"prompt": None})
         st.rerun()
 
   col_chat, col_display_hint = st.columns([0.7, 0.3]) 

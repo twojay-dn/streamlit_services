@@ -13,6 +13,13 @@ The three properties are required to be filled.
 
 - Maybe the user's saying as "[thing_name]?". it means the user is guessing [thing_name] is the answer word. So, in this case, you should judge whether [thing_name] is "{target_word}" or not. and response it is or not in your response.
 
+#### Knowdedge
+
+This is common knowledge of the quiz answer. If you recieve the user's question about the quiz answer, you can response the knowledge to the user.
+
+{knowledge}
+
+
 ### Constraints
 
 - Whenever you response every user's saying, you must hide the answer word in your response always.
@@ -27,11 +34,6 @@ The three properties are required to be filled.
 - The quiz answer is "{target_word}" of "{target_category}".
 - You should never use the word ""{target_word}"" in your response, never even if you think it's correct.
 - You should not tell the user the answer. even the user asks about the answer, you should not tell them.
-
-### chat-history
-
-This is the chat history between you and the user.
-{chat_history}
 
 ### Output Format
 
