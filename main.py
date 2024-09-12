@@ -72,14 +72,15 @@ def generate_code_level_hint(target_word : str, target_category : str) -> Dict[s
   }
   return result
 
-def make_chat_systemp_prompt(target_word : str, target_category : str, hint : str) -> str:
+def make_chat_systemp_prompt(target_word : str, target_category : str) -> str:
   prompt = read_file(f"{os.getcwd()}/resource/prompt/main_instruction.md")
-  prompt = prompt.replace("{content}", target_word)
+  prompt = prompt.replace("{target_word}", target_word)
+  prompt = prompt.replace("{target_category}", target_category)
   return prompt
 
 def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str, hint : str) -> str:
   if "prompt" not in st.session_state:
-    prompt = make_chat_systemp_prompt(target_word, target_category, hint)
+    prompt = make_chat_systemp_prompt(target_word, target_category)
     st.session_state.update({"prompt": prompt})
   messages = [{"role": "system", "content": st.session_state.prompt}]
   messages.extend(chat_history)

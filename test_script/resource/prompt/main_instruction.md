@@ -20,7 +20,7 @@ Your "response" should be contain two parts.
 ### Constraints
 
 - Whenever you response every user's saying, you must hide the answer word in your response always.
-- Do not use the word "{target_word}" in your response, never. If you need to use the answer word, you must hide it in your response and say it as 'this' or 'that'.
+- Just hide the answer word in all of your responses. Do not use the word "{target_word}" in your response, never. If you need to use the answer word, you must hide it in your response and say it as 'this' or 'that'.
 
 ### Output
 
@@ -32,8 +32,8 @@ Your "response" should be contain two parts.
 - required keys : ["draft", "reasoning", "response"]
 ```
 {
-  "draft" : "The response message you'll send to the user",
-  "reasoning" : "your thought about whether or not you were answering {answer_word} when you generated the response to a user's question.",
+  "reasoning" : "The response message you'll send to the user",
+  "corrective_boolean" : "your thought about whether or not you were answering {target_word} when you generated the response to a user's question.",
   "response" : "The response message you'll send to the user, based on the draft and reasoning."
 }
 ```
