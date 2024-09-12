@@ -6,6 +6,7 @@ from collections import Counter
 from static_messages import *
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+model_name = "gpt-4o-mini"
 
 def init():
   st.session_state.setdefault("word", "")
@@ -38,7 +39,7 @@ def generate_hint(target_word : str, target_category : str, count : int = 11) ->
   prompt = prompt.replace("{target_category}", target_category)
   prompt = prompt.replace("{count}", str(count))
   response = client.chat.completions.create(
-    model = "gpt-3.5-turbo",
+    model = model_name,
     messages = [
       {"role": "system", "content": prompt},
     ],
@@ -83,7 +84,7 @@ def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : st
   messages = [{"role": "system", "content": st.session_state.prompt}]
   messages.extend(chat_history)
   response = client.chat.completions.create(
-    model = "gpt-3.5-turbo",
+    model = model_name,
     messages = messages,
     temperature = 0.45,
     max_tokens = 1500,
@@ -101,7 +102,7 @@ def generate_answer_check(user_input : str, target_word : str) -> bool:
   }
   
   response = client.chat.completions.create(
-    model = "gpt-3.5-turbo",
+    model = model_name,
     messages = [ 
       {"role": "system", "content": prompt},
       temp_input_dict
