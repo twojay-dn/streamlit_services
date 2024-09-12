@@ -75,12 +75,14 @@ def generate_code_level_hint(target_word : str, target_category : str) -> Dict[s
 def make_chat_systemp_prompt(target_word : str, target_category : str) -> str:
   prompt = read_file(f"{os.getcwd()}/resource/prompt/main_instruction.md")
   prompt = prompt.replace("{content}", target_word)
+  print(prompt)
   return prompt
 
 def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : str, target_category : str, hint : str) -> str:
   if "prompt" not in st.session_state:
     prompt = make_chat_systemp_prompt(target_word, target_category)
     st.session_state.update({"prompt": prompt})
+  print(st.session_state.prompt)
   messages = [{"role": "system", "content": st.session_state.prompt}]
   messages.extend(chat_history)
   response = client.chat.completions.create(
@@ -177,6 +179,10 @@ def main():
     with col3:
       regame_button = st.button("재시작", key = "regame_button")
       if regame_button:
+        st.session_state.update({"word": ""})
+        st.session_state.update({"category": ""})
+        st.session_state.update({"target_word": ""})
+        st.session_state.update({"target_category": ""})
         st.session_state.update({"chat_history": []})
         st.session_state.update({"generated_hint": []})
         st.session_state.update({"generated_code_level_hint": {}})
@@ -211,7 +217,8 @@ def main():
             add_message_to_chat_history("assistant", random.choice(correct_answer_messages) + "\n" + "Let's submit the answer in the input box.")
           else:
             picked_hint = st.session_state.generated_hint.pop(len(st.session_state.generated_hint) - 1)
-            response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.word, st.session_state.category, picked_hint)
+            print(st.session_state.word)
+            response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.target_word, st.session_state.category, picked_hint)
             response = retrier(response_callable)
             response = f"{response}. {picked_hint}"
             add_message_to_chat_history("assistant", response)
