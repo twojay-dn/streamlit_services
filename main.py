@@ -38,11 +38,11 @@ def generate_hint(target_word : str, target_category : str, count : int = 11) ->
   prompt = prompt.replace("{target_category}", target_category)
   prompt = prompt.replace("{count}", str(count))
   response = client.chat.completions.create(
-    model = "gpt-3.5-turbo",
+    model = "gpt-4o-mini",
     messages = [
       {"role": "system", "content": prompt},
     ],
-    temperature =  0.56,
+    temperature = 0.56,
     max_tokens = 1200,
     top_p = 0.95
   )
@@ -106,7 +106,7 @@ def generate_chat_response(chat_history : List[Dict[str, Any]], target_word : st
   messages = [{"role": "system", "content": st.session_state.prompt}]
   messages.extend(chat_history)
   response = client.chat.completions.create(
-    model = "gpt-3.5-turbo",
+    model = "gpt-4o-mini",
     messages = messages,
     temperature = 0.45,
     max_tokens = 1500,
@@ -122,7 +122,7 @@ def generate_answer_check(user_input : str, target_word : str) -> bool:
     "role" : "user",
     "content" : f"<answer_word>{target_word}</answer_word>\n<user_input>{user_input}</user_input>"
   }
-  
+  print(f"prompt : {prompt}")
   response = client.chat.completions.create(
     model = "gpt-3.5-turbo",
     messages = [ 
