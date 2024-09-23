@@ -5,6 +5,10 @@ from openai import OpenAI
 from collections import Counter
 from static_messages import *
 
+# from dotenv import load_dotenv
+# load_dotenv()
+
+# client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def init():
@@ -44,7 +48,7 @@ def generate_hint(target_word : str, target_category : str, count : int = 11) ->
     ],
     temperature = 0.56,
     max_tokens = 1200,
-    top_p = 0.95
+    top_p = 1
   )
   content = response.choices[0].message.content
   if "```" in content:
@@ -226,14 +230,14 @@ def main():
         if chat_input:
           add_message_to_chat_history("user", chat_input)
           condition = lambda res : "result" in res
-          answer_check_callable = lambda : generate_answer_check(st.session_state.word, chat_input)
+          answer_check_callable = lambda : generate_answer_check(st.session_state.target_word, chat_input)
           print(chat_input)
           answer_check = retrier(answer_check_callable, condition_callable=condition)
           if answer_check["result"]:
             add_message_to_chat_history("assistant", random.choice(correct_answer_messages) + "\n" + "Let's submit the answer in the input box.")
           else:
             picked_hint = st.session_state.generated_hint.pop(len(st.session_state.generated_hint) - 1)
-            response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.word, st.session_state.category, picked_hint)
+            response_callable = lambda : generate_chat_response(st.session_state.chat_history, st.session_state.target_word, st.session_state.category, picked_hint)
             response = retrier(response_callable)
             message = response["response"]
             add_message_to_chat_history("assistant", message)
