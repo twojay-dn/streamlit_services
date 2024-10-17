@@ -10,6 +10,13 @@ Each hint should be more clear and significant to notice the answer than the nex
 the first hint should contains critical information to notice the answer.
 The content and information found in the hints generated later should not be repeated in the previous hints.
 
+## Utilizing Word Meaning
+- Use the provided {word_meaning} as a basis for creating hints.
+- Break down the meaning into smaller, less obvious clues without directly stating the full definition.
+- Create hints that describe situations or scenarios where the {word_meaning} would be applicable, without directly mentioning the target word.
+- Based on the {word_meaning}, generate hints using related concepts or ideas, expanding on the core meaning without revealing it entirely.
+- Ensure that hints based on {word_meaning} are distributed throughout the list, not just clustered at the beginning or end.
+
 ## Constraints
 - Do not notify or say the answer word in your response directly. never use the word : {target_word} in any case of your response.
 - Your hints are not allowed to be the same. Your hints must be related to {target_word}. Use words and expressions that are related to {target_word}.
@@ -23,6 +30,8 @@ The content and information found in the hints generated later should not be rep
   - Violence
   - Discrimination
   - Any illegal context
+- When using {word_meaning}, avoid directly stating the definition. Instead, allude to aspects of the meaning in creative ways.
+- Ensure that hints based on {word_meaning} are as concise and child-friendly as other hints.
 
 ## Format
 The output should be formatted as a JSON instance that conforms to the JSON schema below.

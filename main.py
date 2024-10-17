@@ -5,11 +5,11 @@ from openai import OpenAI
 from collections import Counter
 from static_messages import *
 
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
-# client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def init():
   st.session_state.setdefault("word", "")
@@ -22,6 +22,7 @@ def init():
   st.session_state.setdefault("generated_code_level_hint", {})
   st.session_state.setdefault("words", read_csv(f"{os.getcwd()}/resource/words.csv"))
   st.session_state.setdefault("ai_hint_dict", {})
+  st.session_state.setdefault("word_meaning", "")
 
   
 def read_file(file_path : str) -> str:
@@ -34,13 +35,14 @@ def read_csv(file_path : str) -> List[Dict[str, Any]]:
     next(reader)  # 첫 줄(헤더) 건너뛰기
     return list(reader)
 
-def generate_hint(target_word : str, target_category : str, count : int = 11) -> List[str]:
+def generate_hint(target_word : str, target_category : str, word_meaning : str, count : int = 11) -> List[str]:
   target_word = target_word.lower()
   target_category = target_category.lower()
   prompt = read_file(f"{os.getcwd()}/resource/prompt/gen_hint_list.md")
   prompt = prompt.replace("{target_word}", target_word)
   prompt = prompt.replace("{target_category}", target_category)
   prompt = prompt.replace("{count}", str(count))
+  prompt = prompt.replace("{word_meaning}", word_meaning)
   response = client.chat.completions.create(
     model = "gpt-4o-mini",
     messages = [
@@ -175,6 +177,7 @@ def main():
     with col1:
       st.text_input("단어", key = "word", on_change = lambda: st.session_state.update({"word": st.session_state.word}))
       st.text_input("카테고리", key = "category", on_change = lambda: st.session_state.update({"category": st.session_state.category}))
+      st.text_input("단어 뜻", key="word_meaning", on_change=lambda: st.session_state.update({"word_meaning": st.session_state.word_meaning}))
     with col2:
       empty_space = st.container(height = 30, border = False)
       randomgen_button = st.button("랜덤 생성", key = "randomgen_button")
@@ -183,16 +186,20 @@ def main():
         picked = random.choice(st.session_state.words)
         picked_word = picked["word"]
         picked_category = picked["category"]
-        st.session_state.update({"target_word": picked_word})
-        st.session_state.update({"target_category": picked_category})
-        generated_hint_callable = lambda : generate_hint(picked_word, picked_category)
+        picked_meaning = picked.get("meaning", "")  # 'meaning' 키가 없을 경우 빈 문자열 반환
+        st.session_state.update({
+            "target_word": picked_word,
+            "target_category": picked_category,
+            "word_meaning": picked_meaning
+        })
+        generated_hint_callable = lambda: generate_hint(picked_word, picked_category, picked_meaning)
         generated_code_level_hint_callable = lambda : generate_code_level_hint(picked_word, picked_category)
         generated_hint = retrier(generated_hint_callable)
         generated_code_level_hint = retrier(generated_code_level_hint_callable)
         st.session_state.update({"generated_hint": generated_hint})
         st.session_state.update({"generated_code_level_hint": generated_code_level_hint})
       if customgen_button:
-        generated_hint_callable = lambda : generate_hint(st.session_state.word, st.session_state.category)
+        generated_hint_callable = lambda: generate_hint(st.session_state.word, st.session_state.category, st.session_state.word_meaning)
         generated_code_level_hint_callable = lambda : generate_code_level_hint(st.session_state.word, st.session_state.category)
         generated_hint = retrier(generated_hint_callable)
         generated_code_level_hint = retrier(generated_code_level_hint_callable)
@@ -287,8 +294,9 @@ def main():
     hint_container = st.container(height = 930)
     with hint_container:
       st.write("힌트 표시창")
-      st.write(f"정답 : {st.session_state.target_word}")
-      st.write(f"카테고리 : {st.session_state.target_category}")
+      st.write(f"정답: {st.session_state.target_word}")
+      st.write(f"카테고리: {st.session_state.target_category}")
+      st.write(f"단어 뜻: {st.session_state.word_meaning}")
       st.write(st.session_state.generated_hint)
       st.write(st.session_state.generated_code_level_hint)
       

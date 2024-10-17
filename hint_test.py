@@ -24,13 +24,14 @@ def read_csv(file_path: str) -> List[Dict[str, Any]]:
         next(reader)  # 첫 줄(헤더) 건너뛰기
         return list(reader)
 
-def generate_hint(target_word: str, target_category: str, count: int = 11) -> List[str]:
+def generate_hint(target_word: str, target_category: str, word_meaning: str, count: int = 11) -> List[str]:
     target_word = target_word.lower()
     target_category = target_category.lower()
     prompt = read_file(f"{os.getcwd()}/resource/prompt/gen_hint_list.md")
     prompt = prompt.replace("{target_word}", target_word)
     prompt = prompt.replace("{target_category}", target_category)
     prompt = prompt.replace("{count}", str(count))
+    prompt = prompt.replace("{word_meaning}", word_meaning)
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
@@ -56,15 +57,20 @@ def save_results_to_csv(results: List[Dict[str, Any]], filename: str):
 def main():
     st.title("프롬프트 테스트 애플리케이션")
 
-    test_mode = st.radio("테스트 모드 선택", ["랜덤 테스트", "사용자 입력 테스트"])
+    test_mode = st.radio("테스트 모드 선택", ["랜덤 테스트", "사용자 입력 테스트"], key="test_mode")
 
-    num_tests = st.number_input("테스트 횟수를 입력하세요:", min_value=1, max_value=100, value=10)
+    num_tests = st.number_input("테스트 횟수를 입력하세요:", min_value=1, max_value=100, value=10, key="num_tests")
+
+    target_word = ""
+    target_category = ""
+    word_meaning = ""
 
     if test_mode == "사용자 입력 테스트":
-        target_word = st.text_input("테스트할 단어를 입력하세요:")
-        target_category = st.text_input("테스트할 카테고리를 입력하세요:")
+        target_word = st.text_input("테스트할 단어를 입력하세요:", key="target_word_input")
+        target_category = st.text_input("테스트할 카테고리를 입력하세요:", key="target_category_input")
+        word_meaning = st.text_input("단어의 의미를 입력하세요:", key="word_meaning_input")
 
-    if st.button("테스트 시작"):
+    if st.button("테스트 시작", key="start_test"):
         progress_bar = st.progress(0)
         results = []
 
@@ -73,15 +79,17 @@ def main():
                 random_word = random.choice(st.session_state.words)
                 target_word = random_word['word']
                 target_category = random_word['category']
+                word_meaning = random_word.get('meaning', '')
 
             start_time = time.time()
-            hints = generate_hint(target_word, target_category)
+            hints = generate_hint(target_word, target_category, word_meaning)
             end_time = time.time()
 
             results.append({
                 "test_number": i + 1,
                 "target_word": target_word,
                 "target_category": target_category,
+                "word_meaning": word_meaning,
                 "hints": hints,
                 "time_taken": end_time - start_time
             })
@@ -98,6 +106,7 @@ def main():
             st.write(f"대상 단어: {result['target_word']}")
             st.write(f"카테고리: {result['target_category']}")
             st.write(f"소요 시간: {result['time_taken']:.2f}초")
+            st.write(f"단어 의미: {result['word_meaning']}")
             st.write("생성된 힌트:")
             for hint in result['hints']:
                 st.write(f"- {hint}")
